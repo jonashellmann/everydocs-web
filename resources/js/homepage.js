@@ -84,10 +84,22 @@ class DocumentTable extends React.Component {
 		fetch(config.url + 'documents', {headers: {'Authorization': config.token}})
 		.then(results => results.json())
 		.then(data => {
-			console.log(data);
 			let documents = data.map((doc) => {
+				let state = "-"
+				if (doc.state_id !== null) {
+					state = doc.state.name;
+				}
+				let folder = "-"
+				if (doc.folder_id !== null) {
+					folder = doc.folder.name;
+				}
+				let person = "-"
+				if (doc.person_id !== null) {
+					person = doc.person.name;
+				}
+				
 				return (
-					<Document key={doc.id} id={doc.id} title={doc.title} description={doc.description} state={doc.state.name} folder={doc.folder.name} date={doc.document_date} person={doc.person.name} />
+					<Document key={doc.id} id={doc.id} title={doc.title} description={doc.description} state={state} folder={folder} date={doc.document_date} person={person} />
 				);
 			});
 			this.setState({documents: documents});
