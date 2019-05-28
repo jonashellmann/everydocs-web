@@ -87,7 +87,7 @@ class DocumentTable extends React.Component {
 			console.log(data);
 			let documents = data.map((doc) => {
 				return (
-					<Document key="{doc.id}" id="{doc.id}" title="{doc.title}" description="{doc.description}" state="{doc.state.name}" folder="{doc.folder.name}" date="{doc.document_date}" person="{doc.person.name}" />
+					<Document key={doc.id} id={doc.id} title={doc.title} description={doc.description} state={doc.state.name} folder={doc.folder.name} date={doc.document_date} person={doc.person.name} />
 				);
 			});
 			this.setState({documents: documents});
