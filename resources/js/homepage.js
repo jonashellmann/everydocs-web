@@ -2,13 +2,41 @@
 
 class State extends React.Component {
 	render(props) {
-		return null;
+		return (
+			<div class="state">
+				<p>{props.name}</p>
+			</div>
+		);
 	}
 }
 
 class States extends React.Component {
-	render(props) {
-		return null;
+	constructor(props) {
+		super();
+		this.state = {
+			states: []
+		}
+	}
+	
+	componentWillMount() {
+		fetch(config.url + 'states', {headers: {'Authorization': config.token}})
+		.then(results => results.json())
+		.then(data => {
+			let states = data.map((state) => {
+				return (
+					<State name={state.name} />
+				);
+			});
+			this.setState({states: states});
+		});
+	}
+	
+	render() {
+		return (
+			<div id="states">
+				{this.state.states}
+			</div>
+		);
 	}
 }
 
@@ -26,13 +54,41 @@ class Persons extends React.Component {
 
 class Tag extends React.Component {
 	render(props) {
-		return null;
+		return (
+			<div class="tag">
+				<p>{props.name}</p>
+			</div>
+		);
 	}
 }
 
 class Tags extends React.Component {
-	render(props) {
-		return null;
+	constructor(props) {
+		super();
+		this.tags = {
+			tags: []
+		}
+	}
+	
+	componentWillMount() {
+		fetch(config.url + 'states', {headers: {'Authorization': config.token}})
+		.then(results => results.json())
+		.then(data => {
+			let tags = data.map((tag) => {
+				return (
+					<Tag name={tag.name} />
+				);
+			});
+			this.setState({tags: tags});
+		});
+	}
+	
+	render() {
+		return (
+			<div id="tags">
+				{this.state.tags}
+			</div>
+		);
 	}
 }
 
@@ -50,7 +106,15 @@ class Folders extends React.Component {
 
 class Search extends React.Component {
 	render(props) {
-		return null;
+		return (
+			<div id="search">
+				// TODO: AJAX-Suche, evtl. ohne Button, sondern bei Eingabe-Event
+				<form>
+					<input type="text" placeholder="Search" name="s"/>
+					<input type="submit" formmethod="get" value="🔎" />
+				</form>
+			</div>
+		);
 	}
 }
 
@@ -65,6 +129,7 @@ class Document extends React.Component {
 				<td>{this.props.folder}</td>
 				<td>{this.props.date}</td>
 				<td>{this.props.person}</td>
+				// TODO: Untermenü
 				<td></td>
 			</tr>
 		);
@@ -72,7 +137,6 @@ class Document extends React.Component {
 }
 
 class DocumentTable extends React.Component {
-	
 	constructor(props) {
 		super();
 		this.state = {
