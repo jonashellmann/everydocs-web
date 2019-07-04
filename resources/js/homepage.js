@@ -1,10 +1,12 @@
 "use strict";
 
+var token = readTokenFromCookie();
+
 class State extends React.Component {
 	render(props) {
 		return (
-			<div class="state">
-				<p>{props.name}</p>
+			<div className="state">
+				<p>{this.props.name}</p>
 			</div>
 		);
 	}
@@ -19,12 +21,12 @@ class States extends React.Component {
 	}
 	
 	componentWillMount() {
-		fetch(config.url + 'states', {headers: {'Authorization': config.token}})
+		fetch(config.url + 'states', {headers: {'Authorization': token}})
 		.then(results => results.json())
 		.then(data => {
 			let states = data.map((state) => {
 				return (
-					<State name={state.name} />
+					<State key={state.id} name={state.name} />
 				);
 			});
 			this.setState({states: states});
@@ -55,8 +57,8 @@ class Persons extends React.Component {
 class Tag extends React.Component {
 	render(props) {
 		return (
-			<div class="tag">
-				<p>{props.name}</p>
+			<div className="tag">
+				<p>{this.props.name}</p>
 			</div>
 		);
 	}
@@ -65,18 +67,18 @@ class Tag extends React.Component {
 class Tags extends React.Component {
 	constructor(props) {
 		super();
-		this.tags = {
+		this.state = {
 			tags: []
 		}
 	}
 	
 	componentWillMount() {
-		fetch(config.url + 'states', {headers: {'Authorization': config.token}})
+		fetch(config.url + 'tags', {headers: {'Authorization': token}})
 		.then(results => results.json())
 		.then(data => {
 			let tags = data.map((tag) => {
 				return (
-					<Tag name={tag.name} />
+					<Tag key={tag.id} name={tag.name} />
 				);
 			});
 			this.setState({tags: tags});
@@ -106,12 +108,12 @@ class Folders extends React.Component {
 
 class Search extends React.Component {
 	render(props) {
+    // TODO: AJAX-Suche, evtl. ohne Button, sondern bei Eingabe-Event
 		return (
 			<div id="search">
-				// TODO: AJAX-Suche, evtl. ohne Button, sondern bei Eingabe-Event
 				<form>
 					<input type="text" placeholder="Search" name="s"/>
-					<input type="submit" formmethod="get" value="🔎" />
+					<input type="submit" formMethod="get" value="🔎" />
 				</form>
 			</div>
 		);
@@ -120,7 +122,8 @@ class Search extends React.Component {
 
 class Document extends React.Component {
 	render(props) {
-		return (
+		// TODO: Untermenü in letzter Spalte
+    return (
 			<tr>
 				<td>{this.props.id}</td>
 				<td>{this.props.title}</td>
@@ -129,7 +132,6 @@ class Document extends React.Component {
 				<td>{this.props.folder}</td>
 				<td>{this.props.date}</td>
 				<td>{this.props.person}</td>
-				// TODO: Untermenü
 				<td></td>
 			</tr>
 		);
@@ -145,7 +147,7 @@ class DocumentTable extends React.Component {
 	}
 	
 	componentWillMount() {
-		fetch(config.url + 'documents', {headers: {'Authorization': config.token}})
+		fetch(config.url + 'documents', {headers: {'Authorization': token}})
 		.then(results => results.json())
 		.then(data => {
 			let documents = data.map((doc) => {

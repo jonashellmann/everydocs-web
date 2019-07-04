@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>EveryDocs - Login</title>
+</head>
+
+<body>
+	<div id="wrapper">
+		<div class="auth-form-title">
+			<h1>Log in to EveryDocs</h1>
+		</div>
+	
+		<div id="login" class="auth-form">
+			<div>
+				<label for="email">E-Mail</label>
+				<input type="text" id="email" name="email" />
+			</div>
+			<div>
+				<label for="password">Password</label>
+				<input type="password" id="password" name="password" />
+			</div>
+			<div id="messages"></div>
+			<button type="button" id="login-button" class="login">Login</button>
+		</div>
+		
+		<div class="change-auth-dialog">
+			New here? <a href="/signup/">Create an account</a>.
+		</div>
+	</div>
+
+  <script src="../resources/js/config.js"></script>
+  <script src="../resources/js/main.js"></script>
+	<script src="../resources/js/login.js"></script>
+</body>
+</html> 
