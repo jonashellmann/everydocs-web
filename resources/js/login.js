@@ -19,11 +19,10 @@ function login() {
 	}
 	
 	if (password === '') {
-		showError(emailDiv, 'Please enter your password.');
+		showError(passwordDiv, 'Please enter your password.');
 		return;
 	}
 
-  console.log(email + " " + password)
 	var data = "email=" + email + "&password=" + password;
 
 	fetch(url, {
@@ -35,9 +34,12 @@ function login() {
 	})
 	.then(res => res.json())
 	.then(response => {
-    console.log(response);
-    writeTokenToCookie(response["auth_token"]);
-    changePage('/');
+    if(response.hasOwnProperty('auth_token')) {
+      writeTokenToCookie(response["auth_token"]);
+      changePage('/');
+    } else {
+      showError(passwordDiv, 'You entered the wrong password!');
+    }
   })
 	.catch(error => console.error(error));	
 }

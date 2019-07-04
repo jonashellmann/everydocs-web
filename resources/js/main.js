@@ -75,6 +75,23 @@ function changePage(url) {
 	document.location.href = url;
 }
 
+function showError(element, message) {
+	var messages = document.getElementById('messages');
+	removeChilds(messages);
+	
+	element.classList.add('input-error');
+	var div = document.createElement('div');
+	div.classList.add('message-element');
+	div.innerHTML = message;
+	messages.appendChild(div);
+}
+
+function removeChilds(div) {
+  while (div.firstChild) {
+    div.removeChild(div.firstChild);
+  }
+}
+
 function checkMobileDevice() {
   if(isMobileDevice()) {
     changePage('/mobile/');
