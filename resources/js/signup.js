@@ -58,11 +58,11 @@ function signup() {
   })
   .then(res => res.json())
   .then(response => {
-    if (response['create'] === 'success') {
+    if (response.hasOwnProperty('auth_token')) {
       writeTokenToCookie(response["auth_token"]);
       changePage('/');
     } else {
-      showError(response['message']);
+      showError(null, response['message']);
     }
   })
   .catch(error => console.error(error));
