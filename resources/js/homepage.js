@@ -21,7 +21,7 @@ class States extends React.Component {
 	}
 	
 	componentWillMount() {
-		fetch(config.url + 'states', {headers: {'Authorization': token}})
+		fetch(getConfigUrl() + 'states', {headers: {'Authorization': token}})
 		.then(results => results.json())
 		.then(data => {
 			let states = data.map((state) => {
@@ -73,7 +73,7 @@ class Tags extends React.Component {
 	}
 	
 	componentWillMount() {
-		fetch(config.url + 'tags', {headers: {'Authorization': token}})
+		fetch(getConfigUrl() + 'tags', {headers: {'Authorization': token}})
 		.then(results => results.json())
 		.then(data => {
 			let tags = data.map((tag) => {
@@ -147,7 +147,7 @@ class DocumentTable extends React.Component {
 	}
 	
 	componentWillMount() {
-		fetch(config.url + 'documents', {headers: {'Authorization': token}})
+		fetch(getConfigUrl() + 'documents', {headers: {'Authorization': token}})
 		.then(results => results.json())
 		.then(data => {
 			let documents = data.map((doc) => {

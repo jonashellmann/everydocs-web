@@ -9,7 +9,7 @@ function showError() {
 }
 
 function signup() {
-  var url = config.url + 'signup/';
+  var url = getConfigUrl() + 'signup/';
 
   var emailDiv = document.getElementById('email');
   var nameDiv = document.getElementById('name');

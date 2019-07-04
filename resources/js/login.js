@@ -5,7 +5,7 @@ var button = document.getElementById('login-button');
 button.addEventListener('click', login);
 
 function login() {
-	var url = config.url + 'auth/login/';
+	var url = getConfigUrl() + 'auth/login/';
 	
 	var emailDiv = document.getElementById('email');
 	var passwordDiv = document.getElementById('password');
