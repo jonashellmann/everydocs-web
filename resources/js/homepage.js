@@ -20,7 +20,7 @@ class States extends React.Component {
 		}
 	}
 	
-	componentWillMount() {
+	componentDidMount() {
 		fetch(getConfigUrl() + 'states', {headers: {'Authorization': token}})
 		.then(results => results.json())
 		.then(data => {
@@ -63,7 +63,7 @@ class Persons extends React.Component {
     }
   }
 
-  componentWillMount() {
+  componentDidMount() {
     fetch(getConfigUrl() + 'people', {headers: {'Authorization': token}})
     .then(results => results.json())
     .then(data => {
@@ -106,7 +106,7 @@ class Tags extends React.Component {
 		}
 	}
 	
-	componentWillMount() {
+	componentDidMount() {
 		fetch(getConfigUrl() + 'tags', {headers: {'Authorization': token}})
 		.then(results => results.json())
 		.then(data => {
@@ -152,7 +152,7 @@ class Folders extends React.Component {
     }
   }
 
-	componentWillMount() {
+	componentDidMount() {
   	fetch(getConfigUrl() + 'folders', {headers: {'Authorization': token}})
   	.then(results => results.json())
   	.then(data => {
