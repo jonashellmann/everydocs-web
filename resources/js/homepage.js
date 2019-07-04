@@ -35,22 +35,56 @@ class States extends React.Component {
 	
 	render() {
 		return (
-			<div id="states">
-				{this.state.states}
-			</div>
-		);
+      <div id="states-wrapper">
+        <h4>States</h4>
+			  <div id="states">
+				  {this.state.states}
+			  </div>
+		  </div>
+    );
 	}
 }
 
 class Person extends React.Component {
 	render(props) {
-		return null;
+		return (
+      <div className="person">
+        <p>{this.props.name}</p>
+      </div>
+    );
 	}
 }
 
 class Persons extends React.Component {
-	render(props) {
-		return null;
+	constructor(props) {
+    super();
+    this.state = {
+      persons: []
+    }
+  }
+
+  componentWillMount() {
+    fetch(getConfigUrl() + 'people', {headers: {'Authorization': token}})
+    .then(results => results.json())
+    .then(data => {
+      let persons = data.map((person) => {
+        return (
+          <Person key={person.id} name={person.name} />
+        );
+      });
+      this.setState({persons: persons});
+    });
+  }
+
+  render() {
+		return (
+      <div id="persons-wrapper">
+        <h4>Persons</h4>
+        <div id="persons">
+          {this.state.persons}
+        </div>
+      </div>
+    );
 	}
 }
 
@@ -87,22 +121,59 @@ class Tags extends React.Component {
 	
 	render() {
 		return (
-			<div id="tags">
-				{this.state.tags}
-			</div>
+      <div id="tags-wrapper">
+        <h4>Tags</h4>
+			  <div id="tags">
+				  {this.state.tags}
+			  </div>
+      </div>
 		);
 	}
 }
 
 class Folder extends React.Component {
 	render(props) {
-		return null;
+		return (
+      <div className="folder">
+        <p>{this.props.name}</p>
+        <div className="subfolders">
+          {this.props.subfolders.map(f => <Folder key={f.id} name={f.name} subfolders={f.folders}/>)}
+        </div>
+      </div>
+    );
 	}
 }
 
 class Folders extends React.Component {
-	render(props) {
-		return null;
+	constructor(props) {
+    super();
+    this.state = {
+      folders: []
+    }
+  }
+
+	componentWillMount() {
+  	fetch(getConfigUrl() + 'folders', {headers: {'Authorization': token}})
+  	.then(results => results.json())
+  	.then(data => {
+    	let folders = data.map((folder) => {
+      	return (
+        	<Folder key={folder.id} name={folder.name} subfolders={folder.folders}/>
+      	);
+    	});
+    	this.setState({folders: folders});
+  	});
+	}
+
+  render() {
+		return (
+      <div id="folder-wrapper">
+        <h4>Folders</h4>
+        <div id="folders">
+          {this.state.folders}
+        </div>
+      </div>
+    );
 	}
 }
 
