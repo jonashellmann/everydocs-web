@@ -6,7 +6,7 @@ class State extends React.Component {
 	render(props) {
 		return (
 			<div className="state">
-				<p>{this.props.name}</p>
+				<span>{this.props.name}</span>
 			</div>
 		);
 	}
@@ -49,7 +49,7 @@ class Person extends React.Component {
 	render(props) {
 		return (
       <div className="person">
-        <p>{this.props.name}</p>
+        <span>{this.props.name}</span>
       </div>
     );
 	}
@@ -92,7 +92,7 @@ class Tag extends React.Component {
 	render(props) {
 		return (
 			<div className="tag">
-				<p>{this.props.name}</p>
+				<span>{this.props.name}</span>
 			</div>
 		);
 	}
@@ -135,7 +135,7 @@ class Folder extends React.Component {
 	render(props) {
 		return (
       <div className="folder">
-        <p>{this.props.name}</p>
+        <span>► {this.props.name}</span>
         <div className="subfolders">
           {this.props.subfolders.map(f => <Folder key={f.id} name={f.name} subfolders={f.folders}/>)}
         </div>
@@ -314,10 +314,11 @@ class Header extends React.Component {
   render(props) {
     return ( 
       <div id="header">
+        <h1>EveryDocs</h1>
         <ul>
-          <ol><a href="/">Home</a></ol>
-				  <ol><a href="/new/document/">New Document</a></ol>
-          <ol onClick={logout} style={{cursor: 'pointer'}}>Logout</ol>
+          <li><a href="/">Home</a></li>
+				  <li className="fill-header"><a href="/new/document/">New Document</a></li>
+          <li onClick={logout} style={{cursor: 'pointer'}}><span>Logout</span></li>
         </ul>
       </div>
     );

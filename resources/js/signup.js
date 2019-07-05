@@ -62,7 +62,7 @@ function signup() {
       writeTokenToCookie(response["auth_token"]);
       changePage('/');
     } else {
-      showError(null, response['message']);
+      showError(emailDiv, response['message']);
     }
   })
   .catch(error => console.error(error));

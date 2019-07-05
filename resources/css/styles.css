@@ -1,7 +1,13 @@
 body {
   background-color: #f9f9f9;
   font-family: "Raleway";
+  padding: 0;
+  margin: 0;
 }
+
+/*
+ * Login and Sign Up
+ */
 
 #wrapper {
   max-width: 340px;
@@ -74,4 +80,136 @@ body {
 
 .change-auth-dialog {
   margin-top: 20px;
+}
+
+/*
+ * Homepage
+ */
+
+#header {
+  min-height: 50px;
+  background-color: white;
+  margin-bottom: 10px;
+  background-color: #075dc5;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+#header h1 {
+  margin: 6.5px 30px;
+  color: white;
+}
+
+#header ul {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
+  justify-content: flex-end;
+}
+
+#header ul li {
+  list-style-type: none;
+  height: 50px;
+  border-left: 1px solid white;
+  box-sizing: border-box;
+}
+
+#header ul li a,
+#header ul li span {
+  display: block;
+  color: white !important;
+  text-decoration: none !important;
+  padding: 16px 20px;
+}
+
+@media only screen and (max-width: 580px) {
+  #header h1 {
+    width: 100%;
+    text-align: center;
+  }
+  
+  #header ul {
+    width: 100%;
+  }
+
+  #header ul li {
+    border-top: 1px solid white;
+  }
+
+  #header ul li:first-child {
+    border-left: none;
+  }
+
+  #header ul .fill-header {
+    flex-grow: 1;
+    text-align: center;
+  }
+}
+
+#main {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#main > div {
+  background-color: white;
+  padding: 20px;
+  margin: 10px;
+}
+
+#documents {
+  order: 1;
+  width: 100%;
+}
+
+#documents h2 {
+  margin-top: 0;
+}
+
+#left-bar,
+#right-bar {
+  order: 2;
+  min-width: 300px;
+  width: 50%;
+}
+
+#left-bar > div h4,
+#right-bar > div h4 {
+  margin-top: 0;
+}
+
+#folder-wrapper,
+#right-bar > div {
+  padding: 10px;
+  margin-top: 10px;
+  border: 1px solid #e6e6e6;
+}
+
+#right-bar > div:first-child {
+  margin-top: 0;
+}
+
+.subfolders {
+  margin-left: 10px;
+}
+
+@media only screen and (min-width: 1200px) {
+  #main {
+    flex-wrap: no-wrap;
+  }
+
+  #documents {
+    width: auto;
+    order: 0;
+    flex-grow: 1;
+  }
+
+  #left-bar,
+  #right-bar {
+    order: 0;
+    width: 300px;
+  }
 }
