@@ -78,6 +78,7 @@ function changePage(url) {
 function showError(element, message) {
 	var messages = document.getElementById('messages');
 	removeChilds(messages);
+  messages.style.display = 'block';
 	
 	element.classList.add('input-error');
 	var div = document.createElement('div');

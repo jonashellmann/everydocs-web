@@ -1,0 +1,77 @@
+body {
+  background-color: #f9f9f9;
+  font-family: "Raleway";
+}
+
+#wrapper {
+  max-width: 340px;
+  margin: auto;
+}
+
+.auth-form,
+.change-auth-dialog {
+  background-color: white;
+  padding: 20px;
+}
+
+.auth-form > div {
+  margin-bottom: 10px;
+}
+
+.auth-form-title { 
+	text-align: center;
+}
+
+.auth-form label {
+  font-weight: bold;
+}
+
+.auth-form input,
+.auth-form,
+.change-auth-dialog {
+  border: 1px solid #e6e6e6;
+}
+
+.auth-form button {
+  border: none;
+  background-color: #075dc5;
+  background-image: linear-gradient(-180deg,#2e88f7,#075dc5 90%);
+  font-size: 1em;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+}
+
+.auth-form input,
+.auth-form button {
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.auth-form,
+.auth-form input,
+.auth-form button,
+#messages, 
+.change-auth-dialog {
+  border-radius: 0px;
+}
+
+.auth-form input,
+.auth-form button,
+#messages {
+  padding: 7px 10px;
+}
+
+.input-error {
+  border: 1px solid #f44 !important;
+}
+
+#messages {
+  background-color: #f44;
+  color: white;
+  display: none;
+}
+
+.change-auth-dialog {
+  margin-top: 20px;
+}
