@@ -311,16 +311,17 @@ class MainContent extends React.Component {
 }
 
 class Header extends React.Component {
-	render(props) {
-		return ( 
-			<div id="header">
-				<ul>
-					<ol><a href="/">Home</a></ol>
-					<ol><a href="/new/document/">New Document</a></ol>
-				</ul>
-			</div>
-		);
-	}
+  render(props) {
+    return ( 
+      <div id="header">
+        <ul>
+          <ol><a href="/">Home</a></ol>
+				  <ol><a href="/new/document/">New Document</a></ol>
+          <ol onClick={logout} style={{cursor: 'pointer'}}>Logout</ol>
+        </ul>
+      </div>
+    );
+  }
 }
 
 class Homepage extends React.Component {

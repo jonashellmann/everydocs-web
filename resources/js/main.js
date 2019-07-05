@@ -93,6 +93,14 @@ function removeChilds(div) {
   }
 }
 
+function logout() {
+  var x = confirm('Do you really want to log out?');
+  if(x === true) {
+    deleteTokenCookie();
+    changePage('/login/');
+  }
+}
+
 function checkMobileDevice() {
   if(isMobileDevice()) {
     changePage('/mobile/');
