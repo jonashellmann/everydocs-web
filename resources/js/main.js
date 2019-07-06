@@ -4,23 +4,13 @@ function checkCookieToken() {
     return;
   }
   
-  var url = "/authorize/";
-  var data = "token=" + token;
-  
-  fetch(url, {
-    method: 'POST',
-    body: data,
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-    }
-  })
-  .then(res => res.json())
-  .then(response => {
-    if(response['authorize'] === 'true') {
+  authorize(token)
+  .then(bool => {
+    if(bool) {
       changePage('/');
     }
   })
-  .catch(error => console.error(error));
+	.catch(error => console.error(error));
 }
 
 function checkCookieTokenOnStart() {
@@ -29,19 +19,9 @@ function checkCookieTokenOnStart() {
     changePage('/login/');
   }
 
-  var url = "/authorize/";
-  var data = "token=" + token;
-  
-  fetch(url, {
-    method: 'POST',
-    body: data,
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-    }
-  })
-  .then(res => res.json())
-  .then(response => {
-    if(response['authorize'] === 'false') {
+  authorize(token)
+  .then(bool => {
+    if(!bool) {
       changePage("/login/");
     }
   })
@@ -52,6 +32,19 @@ function writeTokenToCookie(token) {
   var date = new Date();
   date.setTime(date.getTime() + (2 * 24 * 60 * 60 * 1000));
   document.cookie = "token=" + token + "; expires=" + date.toUTCString() + "; path=/";
+}
+
+async function authorize(token) {
+  var response = await 
+		fetch(config.url + 'documents/', {
+    	method: 'GET',
+    	headers: {
+      	'Authorization': token,
+    	}
+  	})
+  	.then(response => response.json())
+  	.then(json => !json.hasOwnProperty('message'));
+	return response;
 }
 
 function readTokenFromCookie() {

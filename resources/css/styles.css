@@ -34,7 +34,8 @@ body {
 
 .auth-form input,
 .auth-form,
-.change-auth-dialog {
+.change-auth-dialog,
+#search input {
   border: 1px solid #e6e6e6;
 }
 
@@ -49,22 +50,16 @@ body {
 }
 
 .auth-form input,
-.auth-form button {
+.auth-form button,
+#search input{
   box-sizing: border-box;
   width: 100%;
 }
 
-.auth-form,
 .auth-form input,
 .auth-form button,
-#messages, 
-.change-auth-dialog {
-  border-radius: 0px;
-}
-
-.auth-form input,
-.auth-form button,
-#messages {
+#messages,
+#search input {
   padding: 7px 10px;
 }
 
@@ -169,16 +164,50 @@ body {
   margin-top: 0;
 }
 
+#document-table {
+  width: 100%;
+}
+
+#document-table tr {
+  border-bottom: 1px solid #e6e6e6;
+}
+
+#document-table th,
+#document-table td {
+  padding: 5px;
+  border-bottom: 1px solid #e6e6e6;
+  text-align: left;
+}
+
 #left-bar,
 #right-bar {
   order: 2;
-  min-width: 300px;
-  width: 50%;
+  width: 100%;
 }
 
 #left-bar > div h4,
 #right-bar > div h4 {
   margin-top: 0;
+}
+
+#search {
+  border: 1px solid #e6e6e6;
+}
+
+#search input {
+  height: 50px;
+  border: none;
+}
+
+#search input[type='text'] {
+  width: calc(100% - 50px);
+  border-right: 1px solid #e6e6e6
+}
+
+#search input[type='submit'] {
+  width: 50px;
+  background-color: white;
+  cursor: pointer;
 }
 
 #folder-wrapper,
@@ -196,7 +225,14 @@ body {
   margin-left: 10px;
 }
 
-@media only screen and (min-width: 1200px) {
+@media only screen and (min-width: 800px) {
+  #left-bar,
+  #right-bar {
+    width: calc(50% - 60px);
+  }
+}
+
+@media only screen and (min-width: 1600px) {
   #main {
     flex-wrap: no-wrap;
   }
