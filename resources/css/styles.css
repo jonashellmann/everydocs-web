@@ -1,5 +1,5 @@
 body {
-  background-color: #f9f9f9;
+  background-color: #ecf0f5;
   font-family: "Raleway";
   padding: 0;
   margin: 0;
@@ -120,30 +120,6 @@ body {
   padding: 16px 20px;
 }
 
-@media only screen and (max-width: 580px) {
-  #header h1 {
-    width: 100%;
-    text-align: center;
-  }
-  
-  #header ul {
-    width: 100%;
-  }
-
-  #header ul li {
-    border-top: 1px solid white;
-  }
-
-  #header ul li:first-child {
-    border-left: none;
-  }
-
-  #header ul .fill-header {
-    flex-grow: 1;
-    text-align: center;
-  }
-}
-
 #main {
   display: flex;
   flex-wrap: wrap;
@@ -177,6 +153,10 @@ body {
   padding: 5px;
   border-bottom: 1px solid #e6e6e6;
   text-align: left;
+}
+
+.hide-mobile {
+  display: none;
 }
 
 #left-bar,
@@ -225,11 +205,95 @@ body {
   margin-left: 10px;
 }
 
+/*
+ * Document Page
+ */
+
+#document {
+  width: 100%;
+  margin: auto;
+  background-color: #ecf0f5 !important;
+}
+
+#document h2 {
+  margin-top: 0;
+}
+
+#document input,
+#document select {
+  border: 1px solid #e6e6e6;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 7px 10px;
+}
+
+#document-fields {
+  background-color: white;
+  padding: 30px;
+}
+
+.document-field {
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+/*
+ * Media Querys
+ */
+
 @media only screen and (min-width: 800px) {
   #left-bar,
   #right-bar {
     width: calc(50% - 60px);
   }
+
+  #document-fields {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  #fields-left,
+  #fields-right {
+    width: calc(50% - 20px);
+  }
+
+  #fields-left {
+    margin-right: 20px;
+  }
+
+  #fields-right {
+    margin-left: 20px;
+  }
+}
+
+@media only screen and (max-width: 580px) {
+  #header h1 {
+    width: 100%;
+    text-align: center;
+  }
+
+  #header ul {
+    width: 100%;
+  }
+
+  #header ul li {
+    border-top: 1px solid white;
+  }
+
+  #header ul li:first-child {
+    border-left: none;
+  }
+
+  #header ul .fill-header {
+    flex-grow: 1;
+    text-align: center;
+  }
+}
+
+@media only screen and (min-width: 750px) {
+	.hide-mobile {
+		display: table-cell;
+	}
 }
 
 @media only screen and (min-width: 1600px) {

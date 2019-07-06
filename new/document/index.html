@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>EveryDocs - New Document</title>
+
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="stylesheet" href="../../resources/css/raleway.css" />
+  <link rel="stylesheet" href="../../resources/css/styles.css" />
+</head>
+
+<body>
+  <div id="root" />
+
+  <!-- Include ReactJS -->
+  <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+  <!-- Include EveryDocs JS files -->
+  <script src="../../resources/js/config.js"></script>
+  <script src="../../resources/js/main.js"></script>
+  <script>
+    checkMobileDevice();
+    checkCookieTokenOnStart();
+  </script>
+  <script src="../../resources/js/new_document.js" type="text/babel"></script>
+</body>
+
+</html>

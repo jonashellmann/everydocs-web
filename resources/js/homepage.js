@@ -199,10 +199,10 @@ class Document extends React.Component {
 				<td>{this.props.id}</td>
 				<td>{this.props.title}</td>
 				<td>{this.props.description}</td>
-				<td>{this.props.state}</td>
-				<td>{this.props.folder}</td>
-				<td>{this.props.date}</td>
-				<td>{this.props.person}</td>
+				<td className="hide-mobile">{this.props.state}</td>
+				<td className="hide-mobile">{this.props.folder}</td>
+				<td className="hide-mobile">{this.props.date}</td>
+				<td className="hide-mobile">{this.props.person}</td>
 				<td></td>
 			</tr>
 		);
@@ -251,10 +251,10 @@ class DocumentTable extends React.Component {
 						<th>Doc-ID</th>
 						<th>Title</th>
 						<th>Description</th>
-						<th>State</th>
-						<th>Folder</th>
-						<th>Date</th>
-						<th>Person</th>
+						<th className="hide-mobile">State</th>
+						<th className="hide-mobile">Folder</th>
+						<th className="hide-mobile">Date</th>
+						<th className="hide-mobile">Person</th>
 						<th></th>
 					</tr>
 					{this.state.documents}
@@ -329,7 +329,7 @@ class Homepage extends React.Component {
 	render(props) {
 		return (
 			<div id="homepage">
-					<Header />
+			  <Header />
 				<MainContent />
 			</div>
 		);
