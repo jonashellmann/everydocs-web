@@ -192,18 +192,32 @@ class Search extends React.Component {
 }
 
 class Document extends React.Component {
-	render(props) {
+	constructor(props) {
+    super();
+    this.state = {
+      props: props
+    }
+  }
+  
+  handleClick = () => {
+    deleteDocument(this.state.props.id);
+  }
+
+  render() {
 		// TODO: Untermenü in letzter Spalte
     return (
 			<tr>
-				<td>{this.props.id}</td>
-				<td>{this.props.title}</td>
-				<td>{this.props.description}</td>
-				<td className="hide-mobile">{this.props.state}</td>
-				<td className="hide-mobile">{this.props.folder}</td>
-				<td className="hide-mobile">{this.props.date}</td>
-				<td className="hide-mobile">{this.props.person}</td>
-				<td></td>
+				<td>{this.state.props.id}</td>
+				<td>{this.state.props.title}</td>
+				<td>{this.state.props.description}</td>
+				<td className="hide-mobile">{this.state.props.state}</td>
+				<td className="hide-mobile">{this.state.props.folder}</td>
+				<td className="hide-mobile">{this.state.props.date}</td>
+				<td className="hide-mobile">{this.state.props.person}</td>
+        <td style={{width: '39px'}}>
+          <a href={"/document/?id=" + this.state.props.id}>🖊</a>
+          <span onClick={this.handleClick}>❌</span>
+        </td>
 			</tr>
 		);
 	}
@@ -310,30 +324,19 @@ class MainContent extends React.Component {
 	}
 }
 
-class Header extends React.Component {
-  render(props) {
-    return ( 
-      <div id="header">
-        <h1>EveryDocs</h1>
-        <ul>
-          <li><a href="/">Home</a></li>
-				  <li className="fill-header"><a href="/new/document/">New Document</a></li>
-          <li onClick={logout} style={{cursor: 'pointer'}}><span>Logout</span></li>
-        </ul>
-      </div>
-    );
-  }
-}
+// ========================================
 
-class Homepage extends React.Component {
-	render(props) {
-		return (
-			<div id="homepage">
-			  <Header />
-				<MainContent />
-			</div>
-		);
-	}
+function deleteDocument(id) {
+  var x = confirm('Do you really want to delete this document?');
+  if(x === true) {
+    fetch(config.url + 'documents/' + id + '/', {
+      headers: {
+        'Authorization': token,
+      },
+      method: 'DELETE'
+    })
+    .then(response => location.reload());
+  }
 }
 
 // ========================================

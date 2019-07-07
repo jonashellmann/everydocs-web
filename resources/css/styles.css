@@ -155,6 +155,15 @@ body {
   text-align: left;
 }
 
+#document-table td a {
+  color: black !important;
+  text-decoration: none !important;
+}
+
+#document-table td span {
+  cursor: pointer;
+}
+
 .hide-mobile {
   display: none;
 }
