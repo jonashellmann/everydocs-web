@@ -176,20 +176,13 @@ class Homepage extends React.Component {
 // ========================================
 
 function save() {
-  const data = new URLSearchParams();
-  for(const pair of new FormData(document.getElementById('document-fields'))) {
-    if(pair[0] !== 'document') {
-      data.append(pair[0], pair[1]);
-    }
-  }
-  data.append('document', el('document-upload').files[0]);
+  var data = new FormData(document.getElementById('document-fields'));
 
   fetch(config.url + 'documents/', {
     method: 'POST',
     body: data,
     headers: {
       'Authorization': token,
-      // 'Content-Type': 'multipart/form-data',
     }
   })
   .then(response => response.json())
