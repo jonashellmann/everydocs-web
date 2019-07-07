@@ -237,6 +237,29 @@ body {
   width: 100%;
 }
 
+#document button {
+  padding: 7px 10px;
+  box-sizing: border-box;
+  border: none;
+  background-color: #075dc5;
+  background-image: linear-gradient(-180deg,#2e88f7,#075dc5 90%);
+  font-size: 1em;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+  width: 100%;
+}
+
+#fields-bottom, 
+#document #messages {
+  width: 100%;
+}
+
+#document #messages {
+  box-sizing: border-box;
+  margin-top: 20px;
+}
+
 /*
  * Media Querys
  */
@@ -263,6 +286,12 @@ body {
 
   #fields-right {
     margin-left: 20px;
+  }
+
+  #document button,
+  #document #messages {
+    width: 50%;
+    margin-left: 25%;
   }
 }
 

@@ -1,3 +1,7 @@
+function el(id) {
+	return document.getElementById(id);
+}
+
 function checkCookieToken() {
   var token = readTokenFromCookie();
   if (token == null || token == 'undefined') {
@@ -69,15 +73,31 @@ function changePage(url) {
 }
 
 function showError(element, message) {
-	var messages = document.getElementById('messages');
-	removeChilds(messages);
-  messages.style.display = 'block';
-	
 	element.classList.add('input-error');
-	var div = document.createElement('div');
-	div.classList.add('message-element');
-	div.innerHTML = message;
-	messages.appendChild(div);
+	showError(message);
+}
+
+function showError(message) {
+  var messages = document.getElementById('messages');
+  removeChilds(messages);
+  messages.style.display = 'block';
+
+  var div = document.createElement('div');
+  div.classList.add('message-element');
+  div.innerHTML = message;
+  messages.appendChild(div);
+}
+
+function showSuccess(message) {
+  var messages = document.getElementById('messages');
+  removeChilds(messages);
+  messages.style.display = 'block';
+	messages.style.backgroundColor = '#00801e';
+
+  var div = document.createElement('div');
+  div.classList.add('message-element');
+  div.innerHTML = message;
+  messages.appendChild(div);
 }
 
 function removeChilds(div) {

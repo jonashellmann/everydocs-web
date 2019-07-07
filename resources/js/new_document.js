@@ -25,7 +25,7 @@ class PersonField extends React.Component {
     return (
       <div className="document-field">
 				<label htmlFor="document-person">Person</label>
-				<select id="document-person">
+				<select id="document-person" name="person">
 					{this.state.persons}
 				</select> 
 			</div>
@@ -56,7 +56,7 @@ class StateField extends React.Component {
     return (
       <div className="document-field">
         <label htmlFor="document-state">State</label>
-        <select id="document-state">
+        <select id="document-state" name="state">
           {this.state.states}
         </select>
       </div>
@@ -87,7 +87,7 @@ class FolderField extends React.Component {
     return (
       <div className="document-field">
         <label htmlFor="document-folder">Folder</label>
-        <select id="document-folder">
+        <select id="document-folder" name="folder">
           {this.state.folders}
         </select>
       </div>
@@ -100,7 +100,7 @@ class Field extends React.Component {
     return (
       <div className="document-field">
         <label htmlFor={this.props.id}>{this.props.label}</label>
-        <input id={this.props.id} type={this.props.type} />
+        <input id={this.props.id} type={this.props.type} name={this.props.name} />
       </div>
     ); 
   }
@@ -111,19 +111,26 @@ class Document extends React.Component {
     return (
       <div id="document">
         <h2>{this.props.title}</h2>
-        <div id="document-fields">
+        <form id="document-fields">
           <div id="fields-left">
-            <Field id="document-title" label="Title" type="text" />
-            <Field id="document-description" label="Description" type="area" />
-            <Field id="document-date" label="Document Date" type="date" />
-            <Field id="document-upload" label="Document" type="file" />
+            <Field id="document-title" label="Title" type="text" name="title" />
+            <Field id="document-description" label="Description" type="area" name="description" />
+            <Field id="document-date" label="Document Date" type="date" name="document_date" />
+            <div className="document-field">
+              <label htmlFor="document-upload">Document</label>
+              <input id="document-upload" type="file" accept=".pdf,application/pdf" name="document" />
+            </div>
           </div>
           <div id="fields-right">
             <FolderField />
             <StateField />
             <PersonField />
           </div>
-        </div>
+          <div id="fields-bottom">  
+            <button type="button" id="save-button" onClick={save}>Save</button>
+            <div id="messages" />
+          </div>
+        </form>
       </div>
     );
   }
@@ -164,6 +171,35 @@ class Homepage extends React.Component {
       </div>
     );
   }
+}
+
+// ========================================
+
+function save() {
+  const data = new URLSearchParams();
+  for(const pair of new FormData(document.getElementById('document-fields'))) {
+    if(pair[0] !== 'document') {
+      data.append(pair[0], pair[1]);
+    }
+  }
+  data.append('document', el('document-upload').files[0]);
+
+  fetch(config.url + 'documents/', {
+    method: 'POST',
+    body: data,
+    headers: {
+      'Authorization': token,
+      // 'Content-Type': 'multipart/form-data',
+    }
+  })
+  .then(response => response.json())
+  .then(response => {
+    if (response.hasOwnProperty('message')) {
+      showError(response['message']);
+    } else {
+      showSuccess('Document has been created!');
+    }
+  });
 }
 
 // ========================================
