@@ -305,7 +305,7 @@ class MainContent extends React.Component {
 				<LeftBar />
 				<Documents />
 				<RightBar />
-        <div id="create-folder" className='create-div hide'>
+        <div id="create-folder" className='create-div hide' onClick={(e) => hideCreateDivs(e)}>
           <div className='auth-form'>
             <h3>New Folder</h3>
             <div>
@@ -321,7 +321,7 @@ class MainContent extends React.Component {
             <button type="button" className="login" onClick={() => createFolder()}>Create</button>
           </div>        
         </div>
-        <div id="create-tag" className='create-div hide'>
+        <div id="create-tag" className='create-div hide' onClick={(e) => hideCreateDivs(e)}>
           <div className='auth-form'>
             <h3>New Tag</h3>
             <div>
@@ -335,7 +335,7 @@ class MainContent extends React.Component {
             <button type="button" className="login" onClick={() => createTag()}>Create</button>
           </div>        
         </div>
-        <div id="create-person" className='create-div hide'>
+        <div id="create-person" className='create-div hide' onClick={(e) => hideCreateDivs(e)}>
           <div className='auth-form'>
             <h3>New Person</h3>
             <div>
@@ -345,7 +345,7 @@ class MainContent extends React.Component {
             <button type="button" className="login" onClick={() => createPerson()}>Create</button>
           </div>        
         </div>
-        <div id="create-state" className='create-div hide'>
+        <div id="create-state" className='create-div hide' onClick={(e) => hideCreateDivs(e)}>
           <div className='auth-form'>
             <h3>New State</h3>
             <div>
@@ -447,7 +447,14 @@ function createState() {
 }
 
 function createFolder() {
+  // TODO: Implement
+}
 
+function hideCreateDivs(e) {
+  if (e.target.classList.contains('create-div')) {
+    e.target.style.display = 'none';
+    console.log("x");
+  }
 }
 
 // ========================================
