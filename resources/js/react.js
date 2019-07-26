@@ -77,7 +77,7 @@ class FolderField extends React.Component {
   }
 
   componentDidMount() {
-    fetch(getConfigUrl() + 'folders', {headers: {'Authorization': token}})
+    fetch(getConfigUrl() + 'folders-all', {headers: {'Authorization': token}})
     .then(results => results.json())
     .then(data => {
       let folders = data.map((f) => {

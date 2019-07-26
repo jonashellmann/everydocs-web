@@ -36,7 +36,7 @@ class States extends React.Component {
 	render() {
 		return (
       <div id="states-wrapper">
-        <h4>States</h4>
+        <h4 className='flex-heading'><span>States</span> <span id="new-state" className='new-span' onClick={() => document.getElementById('create-state').style.display = 'flex'}>➕ New</span></h4>
 			  <div id="states">
 				  {this.state.states}
 			  </div>
@@ -79,7 +79,7 @@ class Persons extends React.Component {
   render() {
 		return (
       <div id="persons-wrapper">
-        <h4>Persons</h4>
+        <h4 className='flex-heading'><span>Persons</span> <span id="new-person" className='new-span' onClick={() => document.getElementById('create-person').style.display = 'flex'}>➕ New</span></h4>
         <div id="persons">
           {this.state.persons}
         </div>
@@ -122,7 +122,7 @@ class Tags extends React.Component {
 	render() {
 		return (
       <div id="tags-wrapper">
-        <h4>Tags</h4>
+        <h4 className='flex-heading'><span>Tags</span> <span id="new-tag" className='new-span' onClick={() => document.getElementById('create-tag').style.display = 'flex'}>➕ New</span></h4>
 			  <div id="tags">
 				  {this.state.tags}
 			  </div>
@@ -168,7 +168,7 @@ class Folders extends React.Component {
   render() {
 		return (
       <div id="folder-wrapper">
-        <h4>Folders</h4>
+        <h4 className='flex-heading'><span>Folders</span> <span id="new-folder" className='new-span' onClick={() => document.getElementById('create-folder').style.display = 'flex'}>➕ New</span></h4>
         <div id="folders">
           {this.state.folders}
         </div>
@@ -199,24 +199,20 @@ class Document extends React.Component {
     }
   }
   
-  handleClick = () => {
-    deleteDocument(this.state.props.id);
-  }
-
   render() {
 		// TODO: Untermenü in letzter Spalte
     return (
 			<tr>
-				<td>{this.state.props.id}</td>
 				<td>{this.state.props.title}</td>
 				<td>{this.state.props.description}</td>
 				<td className="hide-mobile">{this.state.props.state}</td>
 				<td className="hide-mobile">{this.state.props.folder}</td>
 				<td className="hide-mobile">{this.state.props.date}</td>
 				<td className="hide-mobile">{this.state.props.person}</td>
-        <td style={{width: '39px'}}>
+        <td style={{width: '60px'}}>
           <a href={"/document/?id=" + this.state.props.id}>🖊</a>
-          <span onClick={this.handleClick}>❌</span>
+          <span onClick={() => deleteDocument(this.state.props.id)}>❌</span>
+          <a href={config.url + "documents/file/" + this.state.props.id} target="_blank">📁</a>        
         </td>
 			</tr>
 		);
@@ -236,21 +232,12 @@ class DocumentTable extends React.Component {
 		.then(results => results.json())
 		.then(data => {
 			let documents = data.map((doc) => {
-				let state = "-"
-				if (doc.state_id !== null) {
-					state = doc.state.name;
-				}
-				let folder = "-"
-				if (doc.folder_id !== null) {
-					folder = doc.folder.name;
-				}
-				let person = "-"
-				if (doc.person_id !== null) {
-					person = doc.person.name;
-				}
+        let state = doc.state_id !== null ? doc.state.name : "";
+				let folder = doc.folder_id !== null ? doc.folder.name : "";
+        let person = doc.person_id !== null ? doc.person.name : "";
 				
 				return (
-					<Document key={doc.id} id={doc.id} title={doc.title} description={doc.description} state={state} folder={folder} date={doc.document_date} person={person} />
+					<Document key={doc.id} id={doc.id} title={doc.title} description={doc.description} state={state} folder={folder} date={doc.document_date} person={person} url={doc.document_url}/>
 				);
 			});
 			this.setState({documents: documents});
@@ -262,7 +249,6 @@ class DocumentTable extends React.Component {
 			<table id="document-table">
 				<tbody>
 					<tr>
-						<th>Doc-ID</th>
 						<th>Title</th>
 						<th>Description</th>
 						<th className="hide-mobile">State</th>
@@ -319,6 +305,56 @@ class MainContent extends React.Component {
 				<LeftBar />
 				<Documents />
 				<RightBar />
+        <div id="create-folder" className='create-div hide'>
+          <div className='auth-form'>
+            <h3>New Folder</h3>
+            <div>
+              <label htmlFor="folder-name">Name</label>
+              <input type="text" id="folder-name" />
+            </div>
+            <div>
+              <label htmlFor="folder-folder">Parent Folder</label>
+              <select id="folder-folder">
+
+							</select>
+            </div>
+            <button type="button" className="login" onClick={() => createFolder()}>Create</button>
+          </div>        
+        </div>
+        <div id="create-tag" className='create-div hide'>
+          <div className='auth-form'>
+            <h3>New Tag</h3>
+            <div>
+              <label htmlFor="tag-name">Name</label>
+              <input type="text" id="tag-name" />
+            </div>
+            <div>
+              <label htmlFor="tag-color">Color</label>
+              <input type="color" id="tag-color" />
+            </div>
+            <button type="button" className="login" onClick={() => createTag()}>Create</button>
+          </div>        
+        </div>
+        <div id="create-person" className='create-div hide'>
+          <div className='auth-form'>
+            <h3>New Person</h3>
+            <div>
+              <label htmlFor="person-name">Name</label>
+              <input type="text" id="person-name" />
+            </div>
+            <button type="button" className="login" onClick={() => createPerson()}>Create</button>
+          </div>        
+        </div>
+        <div id="create-state" className='create-div hide'>
+          <div className='auth-form'>
+            <h3>New State</h3>
+            <div>
+              <label htmlFor="state-name">Name</label>
+              <input type="text" id="state-name" />
+            </div>
+            <button type="button" className="login" onClick={() => createState()}>Create</button>
+          </div>
+        </div>
 			</div>
 		);
 	}
@@ -337,6 +373,81 @@ function deleteDocument(id) {
     })
     .then(response => location.reload());
   }
+}
+
+function createPerson() {
+  var data = 'name=' + document.getElementById('person-name').value;
+  
+  fetch(config.url + 'people/', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Authorization': token,
+    },
+    body: data
+  })
+  .then(response => response.json())
+  .then(json => {
+    if(json.hasOwnProperty('message')) {
+      console.log(json['message']);
+      // TODO: Fehlerbehandlung
+    }
+    else {
+      location.reload();
+    }
+  });
+}
+
+function createTag() {
+  var data = 'name=' + document.getElementById('tag-name').value + '&color=' + document.getElementById('tag-color').value;
+	console.log(data);	
+
+  fetch(config.url + 'tags/', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Authorization': token,
+    },
+    body: data
+  })
+  .then(response => response.json())
+  .then(json => {
+    if(json.hasOwnProperty('message')) {
+      console.log(json['message']);
+      // TODO: Fehlerbehandlung
+    }
+    else {
+      location.reload();
+    }
+  });
+}
+
+function createState() {
+  var data = 'name=' + document.getElementById('state-name').value;
+  console.log(data);
+
+  fetch(config.url + 'states/', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Authorization': token,
+    },
+    body: data
+  })
+  .then(response => response.json())
+  .then(json => {
+    if(json.hasOwnProperty('message')) {
+      console.log(json['message']);
+      // TODO: Fehlerbehandlung
+    }
+    else {
+      location.reload();
+    }
+  });
+}
+
+function createFolder() {
+
 }
 
 // ========================================

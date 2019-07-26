@@ -33,6 +33,7 @@ body {
 }
 
 .auth-form input,
+.auth-form select,
 .auth-form,
 .change-auth-dialog,
 #search input {
@@ -50,6 +51,7 @@ body {
 }
 
 .auth-form input,
+.auth-form select,
 .auth-form button,
 #search input{
   box-sizing: border-box;
@@ -57,6 +59,7 @@ body {
 }
 
 .auth-form input,
+.auth-form select,
 .auth-form button,
 #messages,
 #search input {
@@ -84,7 +87,6 @@ body {
 #header {
   min-height: 50px;
   background-color: white;
-  margin-bottom: 10px;
   background-color: #075dc5;
   display: flex;
   flex-wrap: wrap;
@@ -164,6 +166,25 @@ body {
   cursor: pointer;
 }
 
+.create-div {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(1,1,1,0.5) !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.create-div div {
+  background-color: white;
+}
+
+.hide,
 .hide-mobile {
   display: none;
 }
@@ -204,6 +225,16 @@ body {
   padding: 10px;
   margin-top: 10px;
   border: 1px solid #e6e6e6;
+}
+
+.flex-heading {
+  display: flex;
+  justify-content: space-between;
+}
+
+.new-span {
+  font-size: 80%;
+  cursor: pointer;
 }
 
 #right-bar > div:first-child {
