@@ -28,6 +28,7 @@ class PersonField extends React.Component {
       <div className="document-field">
         <label htmlFor="document-person">Person</label>
         <select id="document-person" name="person">
+          <option value="">-</option>
           {this.state.persons}
         </select>
       </div>
@@ -60,6 +61,7 @@ class StateField extends React.Component {
       <div className="document-field">
         <label htmlFor="document-state">State</label>
         <select id="document-state" name="state">
+          <option value="">-</option>
           {this.state.states}
         </select>
       </div>
@@ -92,6 +94,7 @@ class FolderField extends React.Component {
       <div className="document-field">
         <label htmlFor="document-folder">Folder</label>
         <select id="document-folder" name="folder">
+          <option value="">-</option>
           {this.state.folders}
         </select>
       </div>
