@@ -245,6 +245,18 @@ body {
   margin-left: 10px;
 }
 
+.folder,
+.person,
+.state,
+.tag {
+  display: flex;
+  justify-content: space-between;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
 /*
  * Document Page
  */

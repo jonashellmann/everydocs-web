@@ -6,7 +6,7 @@ class State extends React.Component {
 	render(props) {
 		return (
 			<div className="state">
-				<span>{this.props.name}</span>
+				<span>{this.props.name}</span><span className='pointer' className='pointer' onClick={() => deleteElement(this.props.id, 'states/', 'state')}>🗑️</span>
 			</div>
 		);
 	}
@@ -26,7 +26,7 @@ class States extends React.Component {
 		.then(data => {
 			let states = data.map((state) => {
 				return (
-					<State key={state.id} name={state.name} />
+					<State key={state.id} id={state.id} name={state.name} />
 				);
 			});
 			this.setState({states: states});
@@ -49,7 +49,7 @@ class Person extends React.Component {
 	render(props) {
 		return (
       <div className="person">
-        <span>{this.props.name}</span>
+        <span>{this.props.name}</span><span className='pointer' onClick={() => deleteElement(this.props.id, 'people/', 'person')}>🗑️</span>
       </div>
     );
 	}
@@ -69,7 +69,7 @@ class Persons extends React.Component {
     .then(data => {
       let persons = data.map((person) => {
         return (
-          <Person key={person.id} name={person.name} />
+          <Person key={person.id} id={person.id} name={person.name} />
         );
       });
       this.setState({persons: persons});
@@ -92,7 +92,7 @@ class Tag extends React.Component {
 	render(props) {
 		return (
 			<div className="tag">
-				<span>{this.props.name}</span>
+				<span>{this.props.name}</span><span className='pointer' onClick={() => deleteElement(this.props.id, 'tags/', 'tag')}>🗑️</span>
 			</div>
 		);
 	}
@@ -112,7 +112,7 @@ class Tags extends React.Component {
 		.then(data => {
 			let tags = data.map((tag) => {
 				return (
-					<Tag key={tag.id} name={tag.name} />
+					<Tag key={tag.id} id={tag.id} name={tag.name} />
 				);
 			});
 			this.setState({tags: tags});
@@ -135,9 +135,9 @@ class Folder extends React.Component {
 	render(props) {
 		return (
       <div className="folder">
-        <span>► {this.props.name}</span>
+        <span>► {this.props.name}</span><span className='pointer' onClick={() => deleteElement(this.props.id, 'folders/', 'folder')}>🗑️</span>
         <div className="subfolders">
-          {this.props.subfolders.map(f => <Folder key={f.id} name={f.name} subfolders={f.folders}/>)}
+          {this.props.subfolders.map(f => <Folder key={f.id} id={f.id} name={f.name} subfolders={f.folders}/>)}
         </div>
       </div>
     );
@@ -158,7 +158,7 @@ class Folders extends React.Component {
   	.then(data => {
     	let folders = data.map((folder) => {
       	return (
-        	<Folder key={folder.id} name={folder.name} subfolders={folder.folders}/>
+        	<Folder key={folder.id} id={folder.id} name={folder.name} subfolders={folder.folders}/>
       	);
     	});
     	this.setState({folders: folders});
@@ -211,7 +211,7 @@ class Document extends React.Component {
 				<td className="hide-mobile">{this.state.props.person}</td>
         <td style={{width: '60px'}}>
           <a href={"/document/?id=" + this.state.props.id}>🖊</a>
-          <span onClick={() => deleteDocument(this.state.props.id)}>❌</span>
+          <span onClick={() => deleteElement(this.state.props.id, 'documents/', 'document')}>🗑️</span>
           <a href={config.url + "documents/file/" + this.state.props.id} target="_blank">📁</a>        
         </td>
 			</tr>
@@ -362,19 +362,6 @@ class MainContent extends React.Component {
 
 // ========================================
 
-function deleteDocument(id) {
-  var x = confirm('Do you really want to delete this document?');
-  if(x === true) {
-    fetch(config.url + 'documents/' + id + '/', {
-      headers: {
-        'Authorization': token,
-      },
-      method: 'DELETE'
-    })
-    .then(response => location.reload());
-  }
-}
-
 function createPerson() {
   var data = 'name=' + document.getElementById('person-name').value;
   
@@ -454,6 +441,19 @@ function hideCreateDivs(e) {
   if (e.target.classList.contains('create-div')) {
     e.target.style.display = 'none';
     console.log("x");
+  }
+}
+
+function deleteElement(id, url, elementType) {
+  if(confirm('Do you want to delete this ' + elementType + '?')) {
+    fetch(config.url + url + id, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': token,
+      }
+    })
+    .then(response => location.reload());
+    // TODO: Fehlerbehandlung
   }
 }
 
