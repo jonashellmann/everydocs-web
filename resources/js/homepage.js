@@ -6,7 +6,8 @@ class State extends React.Component {
 	render(props) {
 		return (
 			<div className="state">
-				<span>{this.props.name}</span><span className='pointer' className='pointer' onClick={() => deleteElement(this.props.id, 'states/', 'state')}>🗑️</span>
+				<span style={{cursor: 'pointer'}} onClick={() => filterElement('state_filter', this.props.id)}>{this.props.name}</span>
+        <span className='pointer' className='pointer' onClick={() => deleteElement(this.props.id, 'states/', 'state')}>🗑️</span>
 			</div>
 		);
 	}
@@ -49,7 +50,8 @@ class Person extends React.Component {
 	render(props) {
 		return (
       <div className="person">
-        <span>{this.props.name}</span><span className='pointer' onClick={() => deleteElement(this.props.id, 'people/', 'person')}>🗑️</span>
+        <span style={{cursor: 'pointer'}} onClick={() => filterElement('person_filter', this.props.id)}>{this.props.name}</span>
+        <span className='pointer' onClick={() => deleteElement(this.props.id, 'people/', 'person')}>🗑️</span>
       </div>
     );
 	}
@@ -92,7 +94,8 @@ class Tag extends React.Component {
 	render(props) {
 		return (
 			<div className="tag">
-				<span>{this.props.name}</span><span className='pointer' onClick={() => deleteElement(this.props.id, 'tags/', 'tag')}>🗑️</span>
+				<span style={{cursor: 'pointer'}} onClick={() => filterElement('tag_filter', this.props.id)}>{this.props.name}</span>
+        <span className='pointer' onClick={() => deleteElement(this.props.id, 'tags/', 'tag')}>🗑️</span>
 			</div>
 		);
 	}
@@ -135,7 +138,8 @@ class Folder extends React.Component {
 	render(props) {
 		return (
       <div className="folder">
-        <span>► {this.props.name}</span><span className='pointer' onClick={() => deleteElement(this.props.id, 'folders/', 'folder')}>🗑️</span>
+        <span style={{cursor: 'pointer'}} onClick={() => filterElement('folder_filter', this.props.id)}>► {this.props.name}</span>
+        <span className='pointer' onClick={() => deleteElement(this.props.id, 'folders/', 'folder')}>🗑️</span>
         <div className="subfolders">
           {this.props.subfolders.map(f => <Folder key={f.id} id={f.id} name={f.name} subfolders={f.folders}/>)}
         </div>
@@ -168,7 +172,10 @@ class Folders extends React.Component {
   render() {
 		return (
       <div id="folder-wrapper">
-        <h4 className='flex-heading'><span>Folders</span> <span id="new-folder" className='new-span' onClick={() => document.getElementById('create-folder').style.display = 'flex'}>➕ New</span></h4>
+        <h4 className='flex-heading'>
+          <span>Folders</span> 
+          <span id="new-folder" className='new-span' onClick={() => {loadFoldersInSelect(); document.getElementById('create-folder').style.display = 'flex'}}>➕ New</span>
+        </h4>
         <div id="folders">
           {this.state.folders}
         </div>
@@ -281,7 +288,7 @@ class RightBar extends React.Component {
 			<div id="right-bar">
 				<States />
 				<Persons />
-				<Tags />
+        {/* TODO: <Tags /> */}
 			</div>
 		);
 	}
@@ -315,7 +322,6 @@ class MainContent extends React.Component {
             <div>
               <label htmlFor="folder-folder">Parent Folder</label>
               <select id="folder-folder">
-
 							</select>
             </div>
             <button type="button" className="login" onClick={() => createFolder()}>Create</button>
@@ -332,7 +338,7 @@ class MainContent extends React.Component {
               <label htmlFor="tag-color">Color</label>
               <input type="color" id="tag-color" />
             </div>
-            <button type="button" className="login" onClick={() => createTag()}>Create</button>
+            <button type="button" className="login" onClick={() => createElement('tags/', 'name=' + document.getElementById('tag-name').value + '&color=' + document.getElementById('tag-color').value)}>Create</button>
           </div>        
         </div>
         <div id="create-person" className='create-div hide' onClick={(e) => hideCreateDivs(e)}>
@@ -342,7 +348,7 @@ class MainContent extends React.Component {
               <label htmlFor="person-name">Name</label>
               <input type="text" id="person-name" />
             </div>
-            <button type="button" className="login" onClick={() => createPerson()}>Create</button>
+            <button type="button" className="login" onClick={() => createElement('people/', 'name=' + document.getElementById('person-name').value)}>Create</button>
           </div>        
         </div>
         <div id="create-state" className='create-div hide' onClick={(e) => hideCreateDivs(e)}>
@@ -352,7 +358,7 @@ class MainContent extends React.Component {
               <label htmlFor="state-name">Name</label>
               <input type="text" id="state-name" />
             </div>
-            <button type="button" className="login" onClick={() => createState()}>Create</button>
+            <button type="button" className="login" onClick={() => createElement('states/', 'name=' + document.getElementById('state-name').value)}>Create</button>
           </div>
         </div>
 			</div>
@@ -362,85 +368,36 @@ class MainContent extends React.Component {
 
 // ========================================
 
-function createPerson() {
-  var data = 'name=' + document.getElementById('person-name').value;
-  
-  fetch(config.url + 'people/', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-      'Authorization': token,
-    },
-    body: data
-  })
-  .then(response => response.json())
-  .then(json => {
-    if(json.hasOwnProperty('message')) {
-      console.log(json['message']);
-      // TODO: Fehlerbehandlung
-    }
-    else {
-      location.reload();
-    }
-  });
-}
-
-function createTag() {
-  var data = 'name=' + document.getElementById('tag-name').value + '&color=' + document.getElementById('tag-color').value;
-	console.log(data);	
-
-  fetch(config.url + 'tags/', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-      'Authorization': token,
-    },
-    body: data
-  })
-  .then(response => response.json())
-  .then(json => {
-    if(json.hasOwnProperty('message')) {
-      console.log(json['message']);
-      // TODO: Fehlerbehandlung
-    }
-    else {
-      location.reload();
-    }
-  });
-}
-
-function createState() {
-  var data = 'name=' + document.getElementById('state-name').value;
-  console.log(data);
-
-  fetch(config.url + 'states/', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-      'Authorization': token,
-    },
-    body: data
-  })
-  .then(response => response.json())
-  .then(json => {
-    if(json.hasOwnProperty('message')) {
-      console.log(json['message']);
-      // TODO: Fehlerbehandlung
-    }
-    else {
-      location.reload();
-    }
-  });
+function createElement(url, data) {
+   fetch(config.url + url, {
+     method: 'POST',
+     headers: {
+       'Content-Type': 'application/x-www-form-urlencoded',
+       'Authorization': token,
+     },
+     body: data
+   })
+   .then(response => response.json())
+   .then(json => {
+     if(json.hasOwnProperty('message')) {
+       console.log(json['message']);
+       // TODO: Fehlerbehandlung
+     }
+     else {
+       location.reload();
+     }
+   });
 }
 
 function createFolder() {
-  // TODO: Implement
+  var select = document.getElementById('folder-folder');
+  var folder = select.length > 0 ? select.options[select.selectedIndex].value : '';
+  createElement('folders/', 'name=' + document.getElementById('folder-name').value + '&folder=' + folder);
 }
 
 function hideCreateDivs(e) {
   if (e.target.classList.contains('create-div')) {
     e.target.style.display = 'none';
-    console.log("x");
   }
 }
 
@@ -455,6 +412,29 @@ function deleteElement(id, url, elementType) {
     .then(response => location.reload());
     // TODO: Fehlerbehandlung
   }
+}
+
+function filterElement(filterName, id) {
+
+}
+
+function loadFoldersInSelect() {
+  var select = document.getElementById('folder-folder');
+  
+  if (select.length > 0) {
+    return;
+  }
+
+  fetch(getConfigUrl() + 'folders-all', {headers: {'Authorization': token}})
+  .then(results => results.json())
+  .then(data => {
+    data.forEach((folder) => {
+      var option = document.createElement('option');
+      option.value = folder.id;
+      option.innerHTML = folder.name;
+      select.appendChild(option);
+    });
+  });
 }
 
 // ========================================
