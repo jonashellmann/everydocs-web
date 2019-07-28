@@ -235,7 +235,7 @@ class DocumentTable extends React.Component {
 	}
 	
 	componentWillMount() {
-		fetch(getConfigUrl() + 'documents', {headers: {'Authorization': token}})
+		fetch(getConfigUrl() + 'documents/' + window.location.search, {headers: {'Authorization': token}})
 		.then(results => results.json())
 		.then(data => {
 			let documents = data.map((doc) => {
@@ -415,7 +415,7 @@ function deleteElement(id, url, elementType) {
 }
 
 function filterElement(filterName, id) {
-
+  window.location.href = '/?' + filterName+ '=' + id;
 }
 
 function loadFoldersInSelect() {
