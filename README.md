@@ -16,16 +16,16 @@ browser.
    the following example:
 <pre>
 # Forward HTTP to HTTPS
-<VirtualHost *:80>
+&lt;VirtualHost *:80&gt;
   ServerName everydocs.test.com # Your domain
 
   RewriteEngine on
   RewriteCond %{SERVER_NAME} =everydocs.test.com # Your domain
   RewriteRule ^ https://%{SERVER_NAME}%{REQUEST_URI} [END,NE,R=permanent]
-</VirtualHost>
+&lt;/VirtualHost&gt;
 
-<IfModule mod_ssl.c>
-<VirtualHost *:443>
+&lt;IfModule mod_ssl.c&gt;
+&lt;VirtualHost *:443&gt;
   ServerName everydocs.test.com # Your domain
   ServerAdmin webmaster@localhost
 
@@ -41,6 +41,6 @@ EveryDocs Core is running
   SSLCertificateFile [SSL Certificate File]
   SSLCertificateKeyFile [SSL Certificate Key File]
   Include /etc/letsencrypt/options-ssl-apache.conf
-</VirtualHost>
-</IfModule>
+&lt;/VirtualHost&gt;
+&lt;/IfModule&gt;
 </pre>
