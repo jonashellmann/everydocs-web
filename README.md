@@ -8,5 +8,39 @@ As the technology ReactJS is used.
 ## Installation
 1. Install [EveryDocs Core](https://github.com/jonashellmann/everydocs-core)
 2. Clone this repository into a location your webserver can access
-3. TODO: Configuration!!
-4. Configure you VirtualHost to point to this folder as root
+3. Open config.js and change the URL where EveryDocs Core can be accessed. For
+   me it helped to run the core part under the same domain. Otherwise the
+website problably won't work because cross-site scripts are blocked by the web
+browser.
+4. To achieve this, you can configure your Apache Virtual Host like I did in
+   the following example:
+<pre>
+# Forward HTTP to HTTPS
+<VirtualHost *:80>
+  ServerName everydocs.test.com # Your domain
+
+  RewriteEngine on
+  RewriteCond %{SERVER_NAME} =everydocs.test.com # Your domain
+  RewriteRule ^ https://%{SERVER_NAME}%{REQUEST_URI} [END,NE,R=permanent]
+</VirtualHost>
+
+<IfModule mod_ssl.c>
+<VirtualHost *:443>
+  ServerName everydocs.test.com # Your domain
+  ServerAdmin webmaster@localhost
+
+  DocumentRoot /var/www/html/everydocs-web/ # Location where EveryDocs Web is
+installed
+  
+  # Forward all calls to /api/ to EveryDocs Core
+  ProxyPass /api/ http://localhost:[PORT]/ # The port under which EveryDocs
+Core is running
+  ProxyPassReverse /api/ http://localhost:[PORT]/ # The port under which
+EveryDocs Core is running
+
+  SSLCertificateFile [SSL Certificate File]
+  SSLCertificateKeyFile [SSL Certificate Key File]
+  Include /etc/letsencrypt/options-ssl-apache.conf
+</VirtualHost>
+</IfModule>
+</pre>
