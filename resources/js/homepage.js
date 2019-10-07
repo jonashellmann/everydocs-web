@@ -190,7 +190,7 @@ class Search extends React.Component {
 		return (
 			<div id="search">
 				<form>
-					<input type="text" placeholder="Search" name="s"/>
+					<input type="text" placeholder="Search" name="search"/>
 					<input type="submit" formMethod="get" value="🔎" />
 				</form>
 			</div>
@@ -238,15 +238,23 @@ class DocumentTable extends React.Component {
 		fetch(getConfigUrl() + 'documents/' + window.location.search, {headers: {'Authorization': token}})
 		.then(results => results.json())
 		.then(data => {
-			let documents = data.map((doc) => {
-        let state = doc.state_id !== null ? doc.state.name : "";
-				let folder = doc.folder_id !== null ? doc.folder.name : "";
-        let person = doc.person_id !== null ? doc.person.name : "";
+      let urlParams = new URLSearchParams(window.location.search);
+			let documents = 
+        data
+        .filter(doc =>
+          !urlParams.has('search') 
+            || doc.title.toLowerCase().includes(urlParams.get('search').toLowerCase())
+            || doc.description.toLowerCase().includes(urlParams.get('search').toLowerCase())
+        )
+        .map((doc) => {
+          let state = doc.state_id !== null ? doc.state.name : "";
+				  let folder = doc.folder_id !== null ? doc.folder.name : "";
+          let person = doc.person_id !== null ? doc.person.name : "";
 				
-				return (
-					<Document key={doc.id} id={doc.id} title={doc.title} description={doc.description} state={state} folder={folder} date={doc.document_date} person={person} url={doc.document_url}/>
-				);
-			});
+				  return (
+					  <Document key={doc.id} id={doc.id} title={doc.title} description={doc.description} state={state} folder={folder} date={doc.document_date} person={person} url={doc.document_url}/>
+				  );
+			  });
 			this.setState({documents: documents});
 		});
 	}
