@@ -1,5 +1,5 @@
 var config = {
-  url: 'https://dms.jonas-hellmann.de/api/',
+  url: 'https://everydocs.test.com/api/',
 }
 
 function getConfigUrl() {
