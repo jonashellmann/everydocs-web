@@ -433,6 +433,11 @@ function loadFoldersInSelect() {
     return;
   }
 
+  var option = document.createElement('option');
+  option.value = '';
+  option.innerHTML = '-';
+  select.appendChild(option);
+
   fetch(getConfigUrl() + 'folders-all', {headers: {'Authorization': token}})
   .then(results => results.json())
   .then(data => {
