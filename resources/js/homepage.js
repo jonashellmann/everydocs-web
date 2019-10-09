@@ -7,7 +7,7 @@ class State extends React.Component {
 		return (
 			<div className="state">
 				<span style={{cursor: 'pointer'}} onClick={() => filterElement('state_filter', this.props.id)}>{this.props.name}</span>
-        <span className='pointer' className='pointer' onClick={() => deleteElement(this.props.id, 'states/', 'state')}>🗑️</span>
+        <span className='state-setting pointer' onClick={() => deleteElement(this.props.id, 'states/', 'state')}>🗑️</span>
 			</div>
 		);
 	}
@@ -37,7 +37,11 @@ class States extends React.Component {
 	render() {
 		return (
       <div id="states-wrapper">
-        <h4 className='flex-heading'><span>States</span> <span id="new-state" className='new-span' onClick={() => document.getElementById('create-state').style.display = 'flex'}>➕ New</span></h4>
+        <h4 className='flex-heading'>
+					<span>States</span>
+					<span id="state-settings" className="pointer" onClick={() => showStateSettings()}>⚙️</span>
+					<span id="new-state" className='state-setting new-span' onClick={() => document.getElementById('create-state').style.display = 'flex'}>➕ New</span>
+				</h4>
 			  <div id="states">
 				  {this.state.states}
 			  </div>
@@ -51,7 +55,7 @@ class Person extends React.Component {
 		return (
       <div className="person">
         <span style={{cursor: 'pointer'}} onClick={() => filterElement('person_filter', this.props.id)}>{this.props.name}</span>
-        <span className='pointer' onClick={() => deleteElement(this.props.id, 'people/', 'person')}>🗑️</span>
+        <span className='person-setting pointer' onClick={() => deleteElement(this.props.id, 'people/', 'person')}>🗑️</span>
       </div>
     );
 	}
@@ -81,7 +85,11 @@ class Persons extends React.Component {
   render() {
 		return (
       <div id="persons-wrapper">
-        <h4 className='flex-heading'><span>Persons</span> <span id="new-person" className='new-span' onClick={() => document.getElementById('create-person').style.display = 'flex'}>➕ New</span></h4>
+        <h4 className='flex-heading'>
+					<span>Persons</span>
+					<span id="person-settings" className="pointer" onClick={() => showPersonSettings()}>⚙️</span>
+					<span id="new-person" className='person-setting new-span' onClick={() => document.getElementById('create-person').style.display = 'flex'}>➕ New</span>
+				</h4>
         <div id="persons">
           {this.state.persons}
         </div>
@@ -138,8 +146,10 @@ class Folder extends React.Component {
 	render(props) {
 		return (
       <div className="folder">
-        <span style={{cursor: 'pointer'}} onClick={() => filterElement('folder_filter', this.props.id)}>► {this.props.name}</span>
-        <span className='pointer' onClick={() => deleteElement(this.props.id, 'folders/', 'folder')}>🗑️</span>
+        <div className="folder-item">
+          <span style={{cursor: 'pointer'}} onClick={() => filterElement('folder_filter', this.props.id)}>{this.props.name}</span>
+          <span className='folder-setting pointer' onClick={() => deleteElement(this.props.id, 'folders/', 'folder')}>🗑️</span>
+        </div>
         <div className="subfolders">
           {this.props.subfolders.map(f => <Folder key={f.id} id={f.id} name={f.name} subfolders={f.folders}/>)}
         </div>
@@ -173,8 +183,9 @@ class Folders extends React.Component {
 		return (
       <div id="folder-wrapper">
         <h4 className='flex-heading'>
-          <span>Folders</span> 
-          <span id="new-folder" className='new-span' onClick={() => {loadFoldersInSelect(); document.getElementById('create-folder').style.display = 'flex'}}>➕ New</span>
+          <span>Folders</span>
+          <span id="folder-settings" className="pointer" onClick={() => showFolderSettings()}>⚙️</span>
+          <span id="new-folder" className='folder-setting new-span' onClick={() => {loadFoldersInSelect(); document.getElementById('create-folder').style.display = 'flex'}}>➕ New</span>
         </h4>
         <div id="folders">
           {this.state.folders}
@@ -448,6 +459,30 @@ function loadFoldersInSelect() {
       select.appendChild(option);
     });
   });
+}
+
+function showFolderSettings() {
+  document.getElementById('folder-settings').style.display = 'none';
+  var elements = document.getElementsByClassName('folder-setting');
+  for (var i = 0; i < elements.length; i++) {
+    elements[i].style.display = 'inline-block';
+  }
+}
+
+function showPersonSettings() {
+  document.getElementById('person-settings').style.display = 'none';
+  var elements = document.getElementsByClassName('person-setting');
+  for (var i = 0; i < elements.length; i++) {
+    elements[i].style.display = 'inline-block';
+  }
+}
+
+function showStateSettings() {
+  document.getElementById('state-settings').style.display = 'none';
+  var elements = document.getElementsByClassName('state-setting');
+  for (var i = 0; i < elements.length; i++) {
+    elements[i].style.display = 'inline-block';
+  }
 }
 
 // ========================================

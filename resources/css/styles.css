@@ -241,8 +241,20 @@ body {
   margin-top: 0;
 }
 
+.folder-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px;
+}
+
 .subfolders {
-  margin-left: 10px;
+  margin-left: 25px;
+}
+
+.folder-setting,
+.person-setting,
+.state-setting{
+  display: none;
 }
 
 .person,
@@ -250,6 +262,7 @@ body {
 .tag {
   display: flex;
   justify-content: space-between;
+  padding: 5px;
 }
 
 .pointer {
