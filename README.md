@@ -1,7 +1,5 @@
 # EveryDocs Web
 
-**Please note: currently under development**
-
 EveryDocs Web is the web interface of [EveryDocs](https://github.com/jonashellmann/everydocs-core). 
 As the technology ReactJS is used. 
 
