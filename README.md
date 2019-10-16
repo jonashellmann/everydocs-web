@@ -5,7 +5,7 @@ As the technology ReactJS is used.
 
 ## Installation
 1. Install [EveryDocs Core](https://github.com/jonashellmann/everydocs-core)
-2. Clone this repository into a location your webserver can access
+2. Download the newest release and unzip it into a location your webserver can access
 3. Open config.js and change the URL where EveryDocs Core can be accessed. For
    me it helped to run the core part under the same domain. Otherwise the
 website problably won't work because cross-site scripts are blocked by the web
