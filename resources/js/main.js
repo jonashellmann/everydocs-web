@@ -1,3 +1,17 @@
+checkServer();
+
+function checkServer() {
+  console.log('Test Server');
+  fetch(config.url + '/', {
+      method: 'GET'
+  })
+  .then(response => {
+    if (response.status !== 200) {
+      window.location.href = '/error/';
+    }
+  });
+}
+
 function el(id) {
 	return document.getElementById(id);
 }
