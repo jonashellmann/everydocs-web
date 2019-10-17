@@ -1,7 +1,6 @@
 checkServer();
 
 function checkServer() {
-  console.log('Test Server');
   fetch(config.url + '/', {
       method: 'GET'
   })
