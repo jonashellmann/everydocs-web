@@ -72,8 +72,8 @@ function changePage(url) {
 	document.location.href = url;
 }
 
-function showError(element, message) {
-	element.classList.add('input-error');
+function showError1(element, message) {
+  element.classList.add('input-error');
 	showError(message);
 }
 

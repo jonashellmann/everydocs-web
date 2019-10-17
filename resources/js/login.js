@@ -14,12 +14,12 @@ function login() {
 	var password = passwordDiv.value;
 	
 	if (email === '') {
-		showError(emailDiv, 'Please enter an email address.');
+		showError1(emailDiv, 'Please enter an email address.');
 		return;
 	}
 	
 	if (password === '') {
-		showError(passwordDiv, 'Please enter your password.');
+		showError1(passwordDiv, 'Please enter your password.');
 		return;
 	}
 
@@ -38,7 +38,7 @@ function login() {
       writeTokenToCookie(response["auth_token"]);
       changePage('/');
     } else {
-      showError(passwordDiv, 'You entered the wrong password!');
+      showError1(passwordDiv, 'You entered the wrong password!');
     }
   })
 	.catch(error => console.error(error));	

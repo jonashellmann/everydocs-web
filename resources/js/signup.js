@@ -18,32 +18,32 @@ function signup() {
   var passwordConfirmation = passwordConfirmationDiv.value;
 
   if (email === '') {
-	  showError(emailDiv, 'Please enter your email.');
+	  showError1(emailDiv, 'Please enter your email.');
 	  return;
   }
   
   if (!/^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/.test(email)) {
-	  showError(emailDiv, 'Please enter a valid email.');
+	  showError1(emailDiv, 'Please enter a valid email.');
 	  return;
   }
   
   if (name === '') {
-	  showError(nameDiv, 'Please enter your name.');
+	  showError1(nameDiv, 'Please enter your name.');
 	  return;
   }
 	
   if (password === '') {
-    showError(passwordDiv, 'Please enter your password.');
+    showError1(passwordDiv, 'Please enter your password.');
     return;
   }
   
   if (passwordConfirmation === '') {
-    showError(passwordConfirmationDiv, 'Please confirm your password.');
+    showError1(passwordConfirmationDiv, 'Please confirm your password.');
     return;
   }
   
   if (password !== passwordConfirmation) {
-    showError(passwordConfirmationDiv, 'You entered different passwords.');
+    showError1(passwordConfirmationDiv, 'You entered different passwords.');
     return;
   }
   
@@ -62,7 +62,7 @@ function signup() {
       writeTokenToCookie(response["auth_token"]);
       changePage('/');
     } else {
-      showError(emailDiv, response['message']);
+      showError1(emailDiv, response['message']);
     }
   })
   .catch(error => console.error(error));
