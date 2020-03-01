@@ -249,14 +249,8 @@ class DocumentTable extends React.Component {
 		fetch(getConfigUrl() + 'documents/' + window.location.search, {headers: {'Authorization': token}})
 		.then(results => results.json())
 		.then(data => {
-      let urlParams = new URLSearchParams(window.location.search);
 			let documents = 
         data
-        .filter(doc =>
-          !urlParams.has('search') 
-            || doc.title.toLowerCase().includes(urlParams.get('search').toLowerCase())
-            || doc.description.toLowerCase().includes(urlParams.get('search').toLowerCase())
-        )
         .map((doc) => {
           let state = doc.state_id !== null ? doc.state.name : "";
 				  let folder = doc.folder_id !== null ? doc.folder.name : "";
