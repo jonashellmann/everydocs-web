@@ -16,7 +16,6 @@ class PersonField extends React.Component {
     .then(results => results.json())
     .then(data => {
       let persons = data.map((p) => {
-        console.log(p);
         return <option key={p.id} value={p.id} selected={p.id === this.state.props.value}>{p.name}</option>
       });
       this.setState({persons: persons});
@@ -79,11 +78,11 @@ class FolderField extends React.Component {
   }
 
   componentDidMount() {
-    fetch(getConfigUrl() + 'folders-all', {headers: {'Authorization': token}})
+    fetch(getConfigUrl() + 'folders', {headers: {'Authorization': token}})
     .then(results => results.json())
     .then(data => {
       let folders = data.map((f) => {
-        return <option key={f.id} value={f.id} selected={f.id === this.state.props.value}>{f.name}</option>
+        return processJsonFolder(f, this.state.props.value, 0);
       });
       this.setState({folders: folders});
     });
@@ -137,4 +136,20 @@ class Header extends React.Component {
       </div>
     );
   }
+}
+
+// ---------------------------------------------------------------
+
+function processJsonFolder(folder, currentValue, level) {
+  var html = [];
+  var name = folder.name;
+  for (var i = 0; i < level; i++) {
+    name = "\xA0\xA0\xA0\xA0" + name;
+  }
+  html.push(<option key={folder.id} value={folder.id} selected={folder.id === currentValue}>{name}</option>);
+  for (var i = 0; i < folder.folders.length; i++) {
+    var array = processJsonFolder(folder.folders[i], currentValue, level + 1);
+    html.push(array);
+  }
+  return html;
 }

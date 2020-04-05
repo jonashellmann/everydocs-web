@@ -222,10 +222,10 @@ class Document extends React.Component {
     return (
 			<tr>
 				<td>{this.state.props.title}</td>
-				<td>{this.state.props.description}</td>
+				<td className="hide-mobile">{this.state.props.description}</td>
 				<td className="hide-mobile">{this.state.props.state}</td>
 				<td className="hide-mobile">{this.state.props.folder}</td>
-				<td className="hide-mobile">{this.state.props.date}</td>
+				<td>{this.state.props.date}</td>
 				<td className="hide-mobile">{this.state.props.person}</td>
         <td style={{width: '60px'}}>
           <a href={"/document/?id=" + this.state.props.id}>🖊</a>
@@ -270,10 +270,10 @@ class DocumentTable extends React.Component {
 				<tbody>
 					<tr>
 						<th>Title</th>
-						<th>Description</th>
+						<th className="hide-mobile">Description</th>
 						<th className="hide-mobile">State</th>
 						<th className="hide-mobile">Folder</th>
-						<th className="hide-mobile">Date</th>
+						<th>Date</th>
 						<th className="hide-mobile">Person</th>
 						<th></th>
 					</tr>

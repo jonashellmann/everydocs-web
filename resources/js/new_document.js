@@ -32,7 +32,6 @@ class Document extends React.Component {
 
 class MainContent extends React.Component {
   render(props) {
-    // TODO: Create the main content
 		return (
       <div id="main">
         <Document pageTitle="New Document" />    
