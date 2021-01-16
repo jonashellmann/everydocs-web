@@ -34,7 +34,8 @@ class MainContent extends React.Component {
   render(props) {
 		return (
       <div id="main">
-        <Document pageTitle="New Document" />    
+        <Document pageTitle="New Document" />
+        <div className="lds-dual-ring"></div>
       </div>
     );
   }
@@ -45,6 +46,9 @@ class MainContent extends React.Component {
 function save() {
   var data = new FormData(document.getElementById('document-fields'));
 
+  var loader = document.getElementsByClassName('lds-dual-ring')[0];
+  loader.style.display = 'inline-block';
+
   fetch(config.url + 'documents/', {
     method: 'POST',
     body: data,
@@ -54,11 +58,16 @@ function save() {
   })
   .then(response => response.json())
   .then(response => {
+    loader.style.display = 'none';
     if (response.hasOwnProperty('message')) {
       showError(response['message']);
     } else {
       showSuccess('Document has been created!');
     }
+  })
+  .catch((error) => {
+    loader.style.display = 'none';
+    showError('Server error when creating document!');
   });
 }
 
