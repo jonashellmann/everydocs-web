@@ -48,7 +48,7 @@ function checkCookieTokenOnStart() {
 function writeTokenToCookie(token) {
   var date = new Date();
   date.setTime(date.getTime() + (2 * 24 * 60 * 60 * 1000));
-  document.cookie = "token=" + token + "; expires=" + date.toUTCString() + "; path=/";
+  document.cookie = "token=" + token + "; SameSite=Lax; expires=" + date.toUTCString() + "; path=/";
 }
 
 async function authorize(token) {
