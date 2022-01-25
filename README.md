@@ -8,7 +8,7 @@ As the technology, ReactJS is used.
 ### Docker (recommended)
 
 Run the following command to be able to access the web interface on port 5656.
-<pre>docker run -v /path/to/config.js:/usr/local/apache2/htdocs/config.js /jonashellmann/everydocs-web</pre>
+<pre>docker run -v /path/to/config.js:/usr/local/apache2/htdocs/config.js jonashellmann/everydocs-web</pre>
 
 The file ``/path/to/config.js`` needs to have the following content. The URL needs to be replaced by the actual URL you use for your Everydocs Core installation.
 <pre>
