@@ -436,11 +436,7 @@ function downloadElement(id, url, title) {
   })
   .then(response => response.blob())
   .then(blob => {
-    var fileUrl = window.URL.createObjectURL(blob);
-	var fileLink = document.createElement('a');
-	fileLink.href = fileUrl;
-	fileLink.download = title;
-	fileLink.click();
+    saveAs(blob, title + ".pdf");
   });
   // TODO: error handling
 }
