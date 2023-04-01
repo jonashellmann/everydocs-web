@@ -227,11 +227,11 @@ class Document extends React.Component {
 				<td className="hide-mobile">{this.state.props.folder}</td>
 				<td>{this.state.props.date}</td>
 				<td className="hide-mobile">{this.state.props.person}</td>
-        <td style={{width: '60px'}}>
-          <a href={"/document/?id=" + this.state.props.id}>🖊</a>
-          <span onClick={() => deleteElement(this.state.props.id, 'documents/', 'document')}>🗑️</span>
-          <a href={config.url + "documents/file/" + this.state.props.id} target="_blank">📁</a>        
-        </td>
+				<td style={{width: '60px'}}>
+					<a href={"/document/?id=" + this.state.props.id}>🖊</a>
+					<span onClick={() => deleteElement(this.state.props.id, 'documents/', 'document')}>🗑️</span>
+					<span onClick={() => downloadElement(this.state.props.id, 'documents/file/', this.state.props.title)}>📁</span>
+				</td>
 			</tr>
 		);
 	}
@@ -423,8 +423,26 @@ function deleteElement(id, url, elementType) {
       }
     })
     .then(response => location.reload());
-    // TODO: Fehlerbehandlung
+    // TODO: error handling
   }
+}
+
+function downloadElement(id, url, title) {
+  fetch(config.url + url + id, {
+    method: 'GET',
+    headers: {
+      'Authorization': token,
+    }
+  })
+  .then(response => response.blob())
+  .then(blob => {
+    var fileUrl = window.URL.createObjectURL(blob);
+	var fileLink = document.createElement('a');
+	fileLink.href = fileUrl;
+	fileLink.download = title;
+	fileLink.click();
+  });
+  // TODO: error handling
 }
 
 function filterElement(filterName, id) {
