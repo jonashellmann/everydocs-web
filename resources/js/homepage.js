@@ -284,12 +284,80 @@ class DocumentTable extends React.Component {
 	}
 }
 
+class PaginationButton extends React.Component {
+	constructor(props) {
+		super();
+		this.state = {
+			url: props.url,
+			text: props.text
+		}
+	}
+
+	render() {
+		return (
+			<a href={this.state.url} className="pagination-button">{this.state.text}</a>
+		);
+	}
+}
+
+class Pagination extends React.Component {
+        constructor(props) {
+                super();
+                this.state = {
+			prevButton: null,
+			nextButton: null
+		}
+        }
+
+	componentWillMount() {
+		let prevButton, nextButton;
+
+		let page = 1;
+		let params = new URLSearchParams(window.location.search);
+		if (params.has("page")) {
+			page = parseInt(params.get("page"));
+		}
+
+		console.log("Page: " + page);
+		if (page > 2) {
+			params.set("page", page - 1);
+			let prevPageUrl = "/?" + params.toString();
+			prevButton = <PaginationButton url={prevPageUrl} text="⬅️ Previous" />;
+		}
+		else if (page === 2) {
+			params.delete("page");
+			let prevPageUrl = "/?" + params.toString();
+                        prevButton = <PaginationButton url={prevPageUrl} text="⬅️ Previous" />;
+		}
+
+		params.set("page", page + 1);
+		let nextPageUrl = "/?" + params.toString();
+		nextButton = <PaginationButton url={nextPageUrl} text="Next ➡️" />;
+
+		this.setState({prevButton: prevButton, nextButton: nextButton});
+	}
+
+	render() {
+		return (
+			<div id="pagination">
+				<div id="pagination-prev">
+					{this.state.prevButton}
+				</div>
+				<div id="pagination-next">
+					{this.state.nextButton}
+				</div>
+			</div>
+		);
+	}
+}
+
 class Documents extends React.Component {
 	render(props) {
 		return (
 			<div id="documents">
 				<h2>Documents</h2>
 				<DocumentTable />
+				<Pagination />
 			</div>
 		);
 	}
