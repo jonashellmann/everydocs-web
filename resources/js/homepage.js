@@ -318,7 +318,6 @@ class Pagination extends React.Component {
 			page = parseInt(params.get("page"));
 		}
 
-		console.log("Page: " + page);
 		if (page > 2) {
 			params.set("page", page - 1);
 			let prevPageUrl = "/?" + params.toString();
