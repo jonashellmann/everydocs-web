@@ -245,7 +245,7 @@ class DocumentTable extends React.Component {
 		}
 	}
 	
-	componentWillMount() {
+	componentDidMount() {
 		fetch(getConfigUrl() + 'documents/' + window.location.search, {headers: {'Authorization': token}})
 		.then(results => results.json())
 		.then(data => {
@@ -309,7 +309,7 @@ class Pagination extends React.Component {
 		}
         }
 
-	componentWillMount() {
+	componentDidMount() {
 		let prevButton, nextButton;
 
 		let page = 1;
