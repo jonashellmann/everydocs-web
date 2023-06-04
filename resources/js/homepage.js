@@ -310,30 +310,36 @@ class Pagination extends React.Component {
         }
 
 	componentDidMount() {
-		let prevButton, nextButton;
+		fetch(getConfigUrl() + 'documents/pages/' + window.location.search, {headers: {'Authorization': token}})
+                        .then(results => results.json())
+                        .then(max_page => {
+				let prevButton, nextButton;
 
-		let page = 1;
-		let params = new URLSearchParams(window.location.search);
-		if (params.has("page")) {
-			page = parseInt(params.get("page"));
-		}
+				let page = 1;
+				let params = new URLSearchParams(window.location.search);
+				if (params.has("page")) {
+					page = parseInt(params.get("page"));
+				}
 
-		if (page > 2) {
-			params.set("page", page - 1);
-			let prevPageUrl = "/?" + params.toString();
-			prevButton = <PaginationButton url={prevPageUrl} text="⬅️ Previous" />;
-		}
-		else if (page === 2) {
-			params.delete("page");
-			let prevPageUrl = "/?" + params.toString();
-                        prevButton = <PaginationButton url={prevPageUrl} text="⬅️ Previous" />;
-		}
+				if (page > 2) {
+					params.set("page", page - 1);
+					let prevPageUrl = "/?" + params.toString();
+					prevButton = <PaginationButton url={prevPageUrl} text="⬅️ Previous" />;
+				}
+				else if (page === 2) {
+					params.delete("page");
+					let prevPageUrl = "/?" + params.toString();
+					prevButton = <PaginationButton url={prevPageUrl} text="⬅️ Previous" />;
+				}
 
-		params.set("page", page + 1);
-		let nextPageUrl = "/?" + params.toString();
-		nextButton = <PaginationButton url={nextPageUrl} text="Next ➡️" />;
+				if (page < max_page) {
+					params.set("page", page + 1);
+					let nextPageUrl = "/?" + params.toString();
+					nextButton = <PaginationButton url={nextPageUrl} text="Next ➡️" />;
+				}
 
-		this.setState({prevButton: prevButton, nextButton: nextButton});
+				this.setState({prevButton: prevButton, nextButton: nextButton});
+			});
 	}
 
 	render() {
