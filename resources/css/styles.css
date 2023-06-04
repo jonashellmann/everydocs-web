@@ -287,6 +287,12 @@ body {
   font-weight: bold;
 }
 
+.pagination-button.active,
+.pagination-button:hover {
+  color: white;
+  background-color: #075dc5;
+}
+
 /*
  * Document Page
  */
