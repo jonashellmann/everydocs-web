@@ -160,7 +160,6 @@ body {
 #document-table td {
   word-wrap: break-word;
   overflow-wrap: break-word;
-  hyphens: auto;
 }
 
 #document-table td a {
@@ -300,6 +299,10 @@ a.pagination-button:hover {
   font-size: small;
   color: gray;
   float: right;
+}
+
+.hyphens {
+  hyphens: auto;
 }
 
 /*

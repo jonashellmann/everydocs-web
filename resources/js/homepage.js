@@ -221,7 +221,7 @@ class Document extends React.Component {
     // TODO: Untermenü in letzter Spalte
     return (
       <tr>
-        <td>{this.state.props.title}</td>
+        <td className="hyphens">{this.state.props.title}</td>
         <td className="hide-mobile">{this.state.props.description}</td>
         <td className="hide-mobile">{this.state.props.state}</td>
         <td className="hide-mobile">{this.state.props.folder}</td>
