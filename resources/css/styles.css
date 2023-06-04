@@ -287,8 +287,8 @@ body {
   font-weight: bold;
 }
 
-.pagination-button.active,
-.pagination-button:hover {
+a.pagination-button.active,
+a.pagination-button:hover {
   color: white;
   background-color: #075dc5;
 }

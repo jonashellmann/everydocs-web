@@ -302,19 +302,19 @@ class PaginationButton extends React.Component {
 }
 
 class Pagination extends React.Component {
-        constructor(props) {
-                super();
-                this.state = {
-      prevButton: null,
-      nextButton: null,
-      pageButtons: []
-    }
-        }
+  constructor(props) {
+    super();
+      this.state = {
+        prevButton: null,
+        nextButton: null,
+        pageButtons: []
+      }
+  }
 
   componentDidMount() {
     fetch(getConfigUrl() + 'documents/pages/' + window.location.search, {headers: {'Authorization': token}})
-                        .then(results => results.json())
-                        .then(max_page => {
+      .then(results => results.json())
+      .then(max_page => {
         let prevButton, nextButton;
         let pageButtons = [];
 
@@ -336,7 +336,13 @@ class Pagination extends React.Component {
               className = "active";
             }
 
+            if (i === (page - 2) && i > 1) {
+              pageButtons.push(<span className="pagination-button">...</span>)
+            }
             pageButtons.push(<PaginationButton key={i} url={pageUrl} text={i} className={className} />)
+            if (i === (page + 2) && i < max_page) {
+              pageButtons.push(<span className="pagination-button">...</span>)
+            }
           }
         }
 
