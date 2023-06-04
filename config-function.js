@@ -10,3 +10,7 @@ function getConfigUrl() {
 function getVersion() {
   return '1.4.2';
 }
+
+function getLanguage() {
+  return config.language;
+}

@@ -115,7 +115,7 @@ class Field extends React.Component {
 class Homepage extends React.Component {
   render(props) {
     return (
-      <div id="homepage">
+      <div id="homepage" lang={getLanguage()}>
         <Header />
         <MainContent />
         <Footer />
