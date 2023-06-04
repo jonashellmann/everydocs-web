@@ -2,11 +2,11 @@
 
 class MainContent extends React.Component {
   constructor(props) {
-		super();
-		this.state = {
-			doc: null
-		}
-	}
+    super();
+    this.state = {
+      doc: null
+    }
+  }
 
   componentDidMount() {
     fetch(config.url + 'documents/' + findGetParameter('id') + '/', {
@@ -24,7 +24,7 @@ class MainContent extends React.Component {
     });
   }
 
-	render() {
+  render() {
     return (
       <div id="main">
         {this.state.doc}
@@ -34,7 +34,7 @@ class MainContent extends React.Component {
 }
 
 class Document extends React.Component {
-	render(props) {
+  render(props) {
     return (
       <div id="document">
         <h2>{this.props.pageTitle}</h2>
@@ -81,14 +81,14 @@ function save() {
 }
 
 function findGetParameter(parameterName) {
-	var result = null, tmp = [];
+  var result = null, tmp = [];
   var items = location.search.substr(1).split("&");
   for (var index = 0; index < items.length; index++) {
-		tmp = items[index].split("=");
+    tmp = items[index].split("=");
     if (tmp[0] === parameterName) 
-			result = decodeURIComponent(tmp[1]);
+      result = decodeURIComponent(tmp[1]);
   }
-	return result;
+  return result;
 }
 
 // ========================================

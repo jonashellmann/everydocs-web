@@ -18,20 +18,20 @@ function signup() {
   var passwordConfirmation = passwordConfirmationDiv.value;
 
   if (email === '') {
-	  showError1(emailDiv, 'Please enter your email.');
-	  return;
+    showError1(emailDiv, 'Please enter your email.');
+    return;
   }
   
   if (!/^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/.test(email)) {
-	  showError1(emailDiv, 'Please enter a valid email.');
-	  return;
+    showError1(emailDiv, 'Please enter a valid email.');
+    return;
   }
   
   if (name === '') {
-	  showError1(nameDiv, 'Please enter your name.');
-	  return;
+    showError1(nameDiv, 'Please enter your name.');
+    return;
   }
-	
+  
   if (password === '') {
     showError1(passwordDiv, 'Please enter your password.');
     return;

@@ -12,7 +12,7 @@ function checkServer() {
 }
 
 function el(id) {
-	return document.getElementById(id);
+  return document.getElementById(id);
 }
 
 function checkCookieToken() {
@@ -27,7 +27,7 @@ function checkCookieToken() {
       changePage('/');
     }
   })
-	.catch(error => console.error(error));
+  .catch(error => console.error(error));
 }
 
 function checkCookieTokenOnStart() {
@@ -53,15 +53,15 @@ function writeTokenToCookie(token) {
 
 async function authorize(token) {
   var response = await 
-		fetch(config.url + 'documents/', {
-    	method: 'GET',
-    	headers: {
-      	'Authorization': token,
-    	}
-  	})
-  	.then(response => response.json())
-  	.then(json => !json.hasOwnProperty('message'));
-	return response;
+    fetch(config.url + 'documents/', {
+      method: 'GET',
+      headers: {
+        'Authorization': token,
+      }
+    })
+    .then(response => response.json())
+    .then(json => !json.hasOwnProperty('message'));
+  return response;
 }
 
 function readTokenFromCookie() {
@@ -82,12 +82,12 @@ function deleteTokenCookie() {
 }
 
 function changePage(url) {
-	document.location.href = url;
+  document.location.href = url;
 }
 
 function showError1(element, message) {
   element.classList.add('input-error');
-	showError(message);
+  showError(message);
 }
 
 function showError(message) {
@@ -105,7 +105,7 @@ function showSuccess(message) {
   var messages = document.getElementById('messages');
   removeChilds(messages);
   messages.style.display = 'block';
-	messages.style.backgroundColor = '#00801e';
+  messages.style.backgroundColor = '#00801e';
 
   var div = document.createElement('div');
   div.classList.add('message-element');
