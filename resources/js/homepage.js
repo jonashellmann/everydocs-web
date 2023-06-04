@@ -326,33 +326,31 @@ class Pagination extends React.Component {
 
 				for (let i = page - 2; i <= page + 2; i++) {
 					if (i >= 1 && i <= max_page) {
-						params.set("page", i);
+						pageUrl = getUrlWithSearchParams("page", i);
 						if (i === 1) {
-							params.delete("page");
+							pageUrl = getUrlWithSearchParams("page", null);
 						}
-						pageUrl = "/?" + params.toString();
+
 						className = "";
 						if (i === page) {
 							className = "active";
 						}
+
 						pageButtons.push(<PaginationButton key={i} url={pageUrl} text={i} className={className} />)
 					}
 				}
 
 				if (page > 2) {
-					params.set("page", page - 1);
-					pageUrl = "/?" + params.toString();
+					pageUrl = getUrlWithSearchParams("page", page - 1);
 					prevButton = <PaginationButton url={pageUrl} text="⬅️ Previous" />;
 				}
 				else if (page === 2) {
-					params.delete("page");
-					pageUrl = "/?" + params.toString();
+					pageUrl = getUrlWithSearchParams("page", null);
 					prevButton = <PaginationButton url={pageUrl} text="⬅️ Previous" />;
 				}
 
 				if (page < max_page) {
-					params.set("page", page + 1);
-					pageUrl = "/?" + params.toString();
+					pageUrl = getUrlWithSearchParams("page", page + 1);
 					nextButton = <PaginationButton url={pageUrl} text="Next ➡️" />;
 				}
 
@@ -536,7 +534,7 @@ function downloadElement(id, url, title) {
 }
 
 function filterElement(filterName, id) {
-  window.location.href = '/?' + filterName+ '=' + id;
+  window.location.href = getUrlWithSearchParams(filterName, id);
 }
 
 function loadFoldersInSelect() {
@@ -585,6 +583,26 @@ function showStateSettings() {
   for (var i = 0; i < elements.length; i++) {
     elements[i].style.display = 'inline-block';
   }
+}
+
+function getUrlWithSearchParams(key, value) {
+  let params = new URLSearchParams(window.location.search);
+
+  if (value == null) {
+    params.delete(key);
+  }
+  else {
+    params.set(key, value);
+    if (key !== "page") {
+      params.delete("page");
+    }
+  }
+  let string = params.toString();
+
+  if (string === "") {
+    return "/" + string;
+  }
+  return "/?" + string;
 }
 
 // ========================================
