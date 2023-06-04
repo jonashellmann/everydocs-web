@@ -6,3 +6,7 @@ function getConfigUrl() {
     return config.url + '/';
   }
 }
+
+function getVersion() {
+  return '1.4.2';
+}

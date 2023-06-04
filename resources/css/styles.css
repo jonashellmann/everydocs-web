@@ -293,6 +293,13 @@ a.pagination-button:hover {
   background-color: #075dc5;
 }
 
+#footer {
+  margin: 0 30px 10px 0;
+  font-size: small;
+  color: gray;
+  float: right;
+}
+
 /*
  * Document Page
  */

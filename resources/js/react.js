@@ -118,6 +118,7 @@ class Homepage extends React.Component {
       <div id="homepage">
         <Header />
         <MainContent />
+        <Footer />
       </div>
     );
   }
@@ -133,6 +134,34 @@ class Header extends React.Component {
           <li className="fill-header"><a href="/new/document/">New Document</a></li>
           <li onClick={logout} style={{cursor: 'pointer'}}><span>Logout</span></li>
         </ul>
+      </div>
+    );
+  }
+}
+
+class Footer extends React.Component {
+  constructor(props) {
+    super();
+    this.state = {
+      versionFrontend: '',
+      versionBackend: ''
+    };
+  }
+
+  componentDidMount() {
+    fetch(getConfigUrl() + 'version')
+      .then(results => results.json())
+      .then(data => {
+        let versionFrontend = getVersion();
+        let versionBackend = data.version;
+        this.setState({versionFrontend: versionFrontend, versionBackend: versionBackend});
+      });
+  }
+
+  render(props) {
+    return (
+      <div id="footer">
+        <span>Version: {this.state.versionFrontend} (Frontend), {this.state.versionBackend} (Backend)</span>
       </div>
     );
   }

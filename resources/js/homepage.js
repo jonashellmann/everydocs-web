@@ -314,7 +314,7 @@ class Pagination extends React.Component {
   componentDidMount() {
     fetch(getConfigUrl() + 'documents/pages/' + window.location.search, {headers: {'Authorization': token}})
       .then(results => results.json())
-      .then(max_page => {
+      .then(data => {
         let prevButton, nextButton;
         let pageButtons = [];
 
@@ -325,7 +325,7 @@ class Pagination extends React.Component {
         }
 
         for (let i = page - 2; i <= page + 2; i++) {
-          if (i >= 1 && i <= max_page) {
+          if (i >= 1 && i <= data.page_count) {
             pageUrl = getUrlWithSearchParams("page", i);
             if (i === 1) {
               pageUrl = getUrlWithSearchParams("page", null);
@@ -340,7 +340,7 @@ class Pagination extends React.Component {
               pageButtons.push(<span className="pagination-button">...</span>)
             }
             pageButtons.push(<PaginationButton key={i} url={pageUrl} text={i} className={className} />)
-            if (i === (page + 2) && i < max_page) {
+            if (i === (page + 2) && i < data.page_count) {
               pageButtons.push(<span className="pagination-button">...</span>)
             }
           }
@@ -355,7 +355,7 @@ class Pagination extends React.Component {
           prevButton = <PaginationButton url={pageUrl} text="⬅️ Previous" />;
         }
 
-        if (page < max_page) {
+        if (page < data.page_count) {
           pageUrl = getUrlWithSearchParams("page", page + 1);
           nextButton = <PaginationButton url={pageUrl} text="Next ➡️" />;
         }
