@@ -305,7 +305,8 @@ class Pagination extends React.Component {
                 super();
                 this.state = {
 			prevButton: null,
-			nextButton: null
+			nextButton: null,
+			pageButtons: []
 		}
         }
 
@@ -314,31 +315,40 @@ class Pagination extends React.Component {
                         .then(results => results.json())
                         .then(max_page => {
 				let prevButton, nextButton;
+				let pageButtons = [];
 
-				let page = 1;
+				let page = 1, pageUrl;
 				let params = new URLSearchParams(window.location.search);
 				if (params.has("page")) {
 					page = parseInt(params.get("page"));
 				}
 
+				for (let i = page - 2; i <= page + 2; i++) {
+					if (i >= 1 && i <= max_page) {
+						params.set("page", i)
+						pageUrl = "/?" + params.toString();
+						pageButtons.push(<PaginationButton key={i} url={pageUrl} text={i} />)
+					}
+				}
+
 				if (page > 2) {
 					params.set("page", page - 1);
-					let prevPageUrl = "/?" + params.toString();
-					prevButton = <PaginationButton url={prevPageUrl} text="⬅️ Previous" />;
+					pageUrl = "/?" + params.toString();
+					prevButton = <PaginationButton url={pageUrl} text="⬅️ Previous" />;
 				}
 				else if (page === 2) {
 					params.delete("page");
-					let prevPageUrl = "/?" + params.toString();
-					prevButton = <PaginationButton url={prevPageUrl} text="⬅️ Previous" />;
+					pageUrl = "/?" + params.toString();
+					prevButton = <PaginationButton url={pageUrl} text="⬅️ Previous" />;
 				}
 
 				if (page < max_page) {
 					params.set("page", page + 1);
-					let nextPageUrl = "/?" + params.toString();
-					nextButton = <PaginationButton url={nextPageUrl} text="Next ➡️" />;
+					pageUrl = "/?" + params.toString();
+					nextButton = <PaginationButton url={pageUrl} text="Next ➡️" />;
 				}
 
-				this.setState({prevButton: prevButton, nextButton: nextButton});
+				this.setState({prevButton: prevButton, nextButton: nextButton, pageButtons: pageButtons});
 			});
 	}
 
@@ -347,6 +357,9 @@ class Pagination extends React.Component {
 			<div id="pagination">
 				<div id="pagination-prev">
 					{this.state.prevButton}
+				</div>
+				<div id="pagination-pages">
+					{this.state.pageButtons}
 				</div>
 				<div id="pagination-next">
 					{this.state.nextButton}
