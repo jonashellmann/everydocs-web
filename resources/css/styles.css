@@ -276,9 +276,10 @@ body {
 }
 
 #pagination {
-  padding: 20px;
+  padding: 20px 0;
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
 }
 
 .pagination-button {
@@ -472,5 +473,22 @@ a.pagination-button:hover {
   #right-bar {
     order: 0;
     width: 300px;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  #pagination-prev {
+    order: 1;
+  }
+
+  #pagination-pages {
+    order: 3;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  #pagination-next {
+    order: 2;
   }
 }
