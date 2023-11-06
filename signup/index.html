@@ -10,7 +10,7 @@
 </head>
 
 <body>
-  <div id="wrapper">
+  <form id="wrapper">
     <div class="auth-form-title">
       <h1>Sign up to EveryDocs</h1>
     </div>
@@ -33,13 +33,13 @@
         <input type="password" id="password-confirmation" name="password-confirmation" />
       </div>
       <div id="messages"></div>
-      <button type="button" id="signup-button" class="submit">Sign Up</button>
+      <input type="submit" id="signup-button" class="submit" value="Sign Up" />
     </div>
 
     <div class="change-auth-dialog">
       Already have an account? <a href="/login/">Login here</a>.
     </div>
-  </div>
+  </form>
 
   <script src="../config.js"></script>
   <script src="../config-function.js"></script>

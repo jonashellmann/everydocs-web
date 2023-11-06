@@ -1,10 +1,11 @@
 checkMobileDevice();
 checkCookieToken();
 
-var button = document.getElementById('login-button');
-button.addEventListener('click', login);
+var form = document.getElementsByTagName('form')[0];
+form.addEventListener('submit', login);
 
-function login() {
+function login(event) {
+  event.preventDefault();
   var url = getConfigUrl() + 'auth/login/';
   
   var emailDiv = document.getElementById('email');

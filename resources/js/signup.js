@@ -1,10 +1,11 @@
 checkMobileDevice();
 checkCookieToken();
 
-var button = document.getElementById('signup-button');
-button.addEventListener('click', signup);
+var form = document.getElementsByTagName('form')[0];
+form.addEventListener('submit', signup);
 
-function signup() {
+function signup(event) {
+  event.preventDefault();
   var url = getConfigUrl() + 'signup/';
 
   var emailDiv = document.getElementById('email');
