@@ -8,7 +8,7 @@ function getConfigUrl() {
 }
 
 function getVersion() {
-  return '1.4.2';
+  return '1.4.4';
 }
 
 function getLanguage() {
