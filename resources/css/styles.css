@@ -335,7 +335,7 @@ a.pagination-button:hover {
   width: 100%;
 }
 
-#document button {
+#document input[type="submit"] {
   padding: 7px 10px;
   box-sizing: border-box;
   border: none;
@@ -422,7 +422,7 @@ a.pagination-button:hover {
     margin-left: 20px;
   }
 
-  #document button,
+  #document input[type="submit"],
   #document #messages {
     width: 50%;
     margin-left: 25%;

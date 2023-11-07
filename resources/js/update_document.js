@@ -38,7 +38,7 @@ class Document extends React.Component {
     return (
       <div id="document">
         <h2>{this.props.pageTitle}</h2>
-        <form id="document-fields">
+        <form id="document-fields" onSubmit={save}>
           <div id="fields-left">
             <Field id="document-title" label="Title" type="text" name="title" value={this.props.title} />
             <Field id="document-description" label="Description" type="area" name="description" value={this.props.description} />
@@ -50,7 +50,7 @@ class Document extends React.Component {
             <PersonField value={this.props.person} />
           </div>
           <div id="fields-bottom">
-            <button type="button" id="save-button" onClick={save}>Save</button>
+            <input type="submit" id="save-button" value="Save" />
             <div id="messages" />
           </div>
         </form>
@@ -61,7 +61,8 @@ class Document extends React.Component {
 
 // ========================================
 
-function save() {
+function save(event) {
+  event.preventDefault();
   var data = new FormData(document.getElementById('document-fields'));
 
   fetch(config.url + 'documents/' + findGetParameter('id') + '/', {

@@ -5,7 +5,7 @@ class Document extends React.Component {
     return (
       <div id="document">
         <h2>{this.props.pageTitle}</h2>
-        <form id="document-fields">
+        <form id="document-fields" onSubmit={save}>
           <div id="fields-left">
             <Field id="document-title" label="Title" type="text" name="title" />
             <Field id="document-description" label="Description" type="area" name="description" />
@@ -21,7 +21,7 @@ class Document extends React.Component {
             <PersonField />
           </div>
           <div id="fields-bottom">  
-            <button type="button" id="save-button" onClick={save}>Save</button>
+            <input type="submit" id="save-button" value="Save" />
             <div id="messages" />
           </div>
         </form>
@@ -43,7 +43,8 @@ class MainContent extends React.Component {
 
 // ========================================
 
-function save() {
+function save(event) {
+  event.preventDefault();
   var data = new FormData(document.getElementById('document-fields'));
 
   var loader = document.getElementsByClassName('lds-dual-ring')[0];
