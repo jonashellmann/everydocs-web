@@ -607,6 +607,17 @@ function getUrlWithSearchParams(key, value) {
       params.delete("page");
     }
   }
+
+  var search = document.querySelector("input[name='search']").value;
+  var oldSearch = params.get("search");
+  params.delete("search");
+  if (search !== "") {
+    if (oldSearch !== null && search !== oldSearch) {
+      params.delete("page");
+    }
+    params.set("search", search);
+  }
+
   let string = params.toString();
 
   if (string === "") {
@@ -618,3 +629,4 @@ function getUrlWithSearchParams(key, value) {
 // ========================================
 
 ReactDOM.render(<Homepage/>, document.getElementById("root"));
+document.querySelector("input[name='search']").value = new URLSearchParams(window.location.search).get("search");
