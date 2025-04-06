@@ -1,4 +1,3 @@
-checkMobileDevice();
 checkCookieToken();
 
 var form = document.getElementsByTagName('form')[0];
